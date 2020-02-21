@@ -10,7 +10,7 @@ const Login = ({ history }) => {
 
     useEffect(() => {
         if(auth) {
-            history.push('/');
+            history.push('/home');
         }
         if(msg !== null) {
             setError(true);
