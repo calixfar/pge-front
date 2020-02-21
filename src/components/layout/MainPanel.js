@@ -19,7 +19,7 @@ const MainPanel = () => {
                 <div className="main-panel">
                         <Header/>
                             <Switch>
-                                <Route exact path="/" component={Content}/>
+                                <Route exact path="/home" component={Content}/>
                                 <Route path="/usuarios" component={Users}/>
                                 <Route path="/usuario/:id" component={User}/>
                                 <Route path="/equipos" component={Teams}/>
