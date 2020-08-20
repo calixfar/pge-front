@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // CSS image replacement
 @mixin text-hide() {
   // stylelint-disable-next-line font-family-no-missing-generic-family-keyword
@@ -7,3 +8,14 @@
   background-color: transparent;
   border: 0;
 }
+=======
+// CSS image replacement
+@mixin text-hide() {
+  // stylelint-disable-next-line font-family-no-missing-generic-family-keyword
+  font: 0/0 a;
+  color: transparent;
+  text-shadow: none;
+  background-color: transparent;
+  border: 0;
+}
+>>>>>>> 96bda403bd0744c487407eb683fc5a3d26245378

@@ -56,13 +56,13 @@ const Places = () => {
                 <div className="row">
                     <div className="col-md-12">
                         <div className="card">
-                            <div className="card-header card-header-primary">
+                            <div className="card-header card-header-success">
                                 <h4 className="card-title ">Lista de lugares</h4>
                             </div>
                             <div className="card-body">
                                 <div className="table-responsive">
                                     <table className="table">
-                                        <thead className=" text-primary">
+                                        <thead className=" text-success">
                                             <tr>
                                                 <th>
                                                     ID

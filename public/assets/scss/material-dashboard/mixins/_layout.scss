@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // Generates the `.in` style for the generic backdrop used components such as the drawer in overlay mode
 @mixin bmd-layout-backdrop-in() {
   > .bmd-layout-backdrop {
@@ -14,3 +15,21 @@
     }
   }
 }
+=======
+// Generates the `.in` style for the generic backdrop used components such as the drawer in overlay mode
+@mixin bmd-layout-backdrop-in() {
+  > .bmd-layout-backdrop {
+    .in {
+      visibility: visible;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    @supports (pointer-events: auto) {
+      &.in {
+        pointer-events: auto;
+        opacity: 1;
+      }
+    }
+  }
+}
+>>>>>>> 96bda403bd0744c487407eb683fc5a3d26245378

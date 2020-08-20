@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 @mixin navbar-colors($color, $link-color) {
     color: $link-color;
     background-color: $color !important;
@@ -16,3 +17,23 @@
         }
     }
 }
+=======
+@mixin navbar-colors($color, $link-color) {
+    color: $link-color;
+    background-color: $color !important;
+    @include shadow-navbar-color($color);
+
+    .dropdown-item:hover,
+    .dropdown-item:focus{
+      @include shadow-small-color($color);
+      background-color: $color;
+      color: $link-color;
+    }
+
+    .navbar-toggler{
+        .navbar-toggler-icon{
+            background-color: $link-color;
+        }
+    }
+}
+>>>>>>> 96bda403bd0744c487407eb683fc5a3d26245378
