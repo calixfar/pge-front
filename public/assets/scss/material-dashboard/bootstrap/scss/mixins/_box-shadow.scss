@@ -1,13 +1,5 @@
-<<<<<<< HEAD
 @mixin box-shadow($shadow...) {
   @if $enable-shadows {
     box-shadow: $shadow;
   }
 }
-=======
-@mixin box-shadow($shadow...) {
-  @if $enable-shadows {
-    box-shadow: $shadow;
-  }
-}
->>>>>>> 96bda403bd0744c487407eb683fc5a3d26245378

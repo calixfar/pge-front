@@ -6,6 +6,10 @@ import {
     LOGIN_ERROR,
     CERRAR_SESION
 } from '../../types/auth';
+import {
+    SHOW_ALERT,
+    HIDE_ALERT
+} from '../../types/alert';
 
 export default (state, action) => {
     switch (action.type) {
@@ -37,6 +41,16 @@ export default (state, action) => {
                 auth: false,
                 loading: false,
                 msg: action.payload
+            }
+        case SHOW_ALERT :
+            return {
+                ...state,
+                alert: true
+            }
+        case HIDE_ALERT :
+            return {
+                ...state,
+                alert: false
             }
         default:
             return state;

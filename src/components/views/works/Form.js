@@ -225,20 +225,25 @@ const FormTeam = ({  }) => {
                                     </div>
                                 </div>
                                 <div className="col-md-3">
-                                    <div className="form-group">
-                                        <label >Tipo de tarea</label>
-                                        <input
+                                    <div className="form-group bmd-form-group">
+                                        <label className="bmd-label-static">Tipo de tarea</label>
+                                        <select
                                             value={type} 
                                             name="type"
                                             type="text"
                                             className="form-control"
                                             onChange={changeState}
-                                        />
+                                        >
+                                            <option value="">Selecciona una opción</option>
+                                            <option value="implementacion">Implementación</option>
+                                            <option value="integracion">Integración</option>
+                                            <option value="toma_documentacion">Toma Documentación</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div className="col-md-3">
-                                    <div className="form-group">
-                                        <label >Prioridad</label>
+                                    <div className="form-group bmd-form-group">
+                                        <label className="bmd-label-static">Prioridad</label>
                                         <select
                                             value={priority} 
                                             name="priority"

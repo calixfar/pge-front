@@ -7,8 +7,8 @@ const Login = ({ history }) => {
     //coment
     const authContext = useContext(AuthContext);
     
-    const {msg, auth, loginUser} = authContext;
-
+    const {msg, auth, loginUser, alert} = authContext;
+    console.log('alert', alert);
     useEffect(() => {
         if(auth) {
             history.push('/home');
@@ -43,6 +43,15 @@ const Login = ({ history }) => {
         loginUser({email, password});
 
     }
+
+    const renderAlert = () => (
+        <div data-notify="container" className={`col-11 col-md-4 alert alert-${!auth ? 'danger' : 'success' } alert-with-icon animated fadeInDown ${alert ? '' : 'fadeOutUp'}`} role="alert"  style={{display: 'inline-block', margin:' 15px auto', position: 'fixed', transition: 'all 0.5s ease-in-out 0s', zIndex: '1031', bottom: '20px', right: '20px'}}>
+                <i data-notify="icon" className="material-icons">add_alert</i>
+                <span data-notify="title"></span> 
+                <span data-notify="message">{msg}</span>
+                <a href="#" target="_blank" data-notify="url"></a>
+            </div>
+    )
     return (
         <div className="content">
             <div className="container-fluid">
@@ -96,6 +105,7 @@ const Login = ({ history }) => {
                     </div>
                 </div>
             </div>
+            {renderAlert()}
         </div>
     )
 }

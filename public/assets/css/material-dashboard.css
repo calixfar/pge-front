@@ -15191,6 +15191,7 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
   width: 260px;
   z-index: 4;
   padding-bottom: 30px;
+  background: #FFFFFF;
 }
 
 .sidebar .sidebar-wrapper .dropdown .dropdown-backdrop {
@@ -15375,6 +15376,7 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
   display: block;
   position: relative;
   z-index: 4;
+  background-color: #fff;
 }
 
 .sidebar .logo:after {
@@ -19159,7 +19161,7 @@ Copyright (c) 2015 Daniel Eden
     top: 0;
     height: 100vh;
     width: 260px;
-    right: 0;
+    right: -260px;
     left: auto;
     z-index: 1032;
     visibility: visible;

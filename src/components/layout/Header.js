@@ -1,9 +1,12 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import AuthContext from '../../context/auth/authContext';
 const Header = () => {
     const authContext = useContext(AuthContext);
     const { userAuth, usuario, cerrarSesion } = authContext;
+
+    const [showSubMenu, setShowSubMenu] = useState(false);
+    const changeSubMenu = () => setShowSubMenu(!showSubMenu);
     useEffect(() => {
         userAuth();
     }, []);
@@ -29,7 +32,7 @@ const Header = () => {
                         <li className="na-item">
                             <p className="navbar-brand mt-3" >{usuario.name}</p>
                         </li>
-                        <li className="nav-item dropdown">
+                        {/* <li className="nav-item dropdown">
                             <a className="nav-link" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i className="material-icons">notifications</i>
                                 <span className="notification">5</span>
@@ -44,15 +47,15 @@ const Header = () => {
                                 <a className="dropdown-item" href="#">Another Notification</a>
                                 <a className="dropdown-item" href="#">Another One</a>
                             </div>
-                        </li>
+                        </li> */}
                         <li className="nav-item dropdown">
-                            <a className="nav-link" href="javascript:;" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <button style={{border: 'none', cursor: 'pointer'}}  onClick={changeSubMenu} className="nav-link" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i className="material-icons">person</i>
                                 <p className="d-lg-none d-md-block">
                                     Account
             </p>
-                            </a>
-                            <div className="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
+                            </button>
+                            <div className={`dropdown-menu dropdown-menu-right ${showSubMenu ? 'show' : '' }`} aria-labelledby="navbarDropdownProfile">
                                 <a className="dropdown-item" href="#">Perfil</a>
                                 <div className="dropdown-divider" />
                                 <button 

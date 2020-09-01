@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 @mixin transition($transition...) {
   @if $enable-transitions {
     @if length($transition) == 0 {
@@ -8,14 +7,3 @@
     }
   }
 }
-=======
-@mixin transition($transition...) {
-  @if $enable-transitions {
-    @if length($transition) == 0 {
-      transition: $transition-base;
-    } @else {
-      transition: $transition;
-    }
-  }
-}
->>>>>>> 96bda403bd0744c487407eb683fc5a3d26245378

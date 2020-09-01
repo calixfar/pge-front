@@ -367,15 +367,20 @@ const FormPlace = ({ destinyForm, history, getPlaces }) => {
                                                 </div>
                                             </div>
                                             <div className="col-md-4">
-                                                <div className="form-group">
-                                                    <label>Tipo Estación</label>
-                                                    <input
+                                                <div className="form-group bmd-form-group">
+                                                    <label className="bmd-label-static">Tipo Estación</label>
+                                                    <select
                                                         value={type_station}
                                                         name="type_station"
                                                         type="text"
                                                         className="form-control"
                                                         onChange={changeState}
-                                                    />
+                                                    >
+                                                        <option value="">Selecciona una opción</option>
+                                                        <option value="Cosite">Cosite</option>
+                                                        <option value="Propio">Propio</option>
+                                                        <option value="Administrativo">Administrativo</option>
+                                                    </select>
                                                 </div>
                                             </div>
                                         </div>

@@ -11,7 +11,10 @@ import {
     LOGIN_ERROR,
     CERRAR_SESION
 } from '../../types/auth';
-
+import {
+    SHOW_ALERT,
+    HIDE_ALERT
+} from '../../types/alert';
 
 const AuthState = ({ children }) => {
     const initialState = {
@@ -19,7 +22,8 @@ const AuthState = ({ children }) => {
         auth: null,
         usuario: null,
         msg: null,
-        loading: true
+        loading: true,
+        alert: false
     }
 
     const [state, dispatch] = useReducer(AuthReducer, initialState);
@@ -59,8 +63,10 @@ const AuthState = ({ children }) => {
         } catch (error) {
             console.log(error.response);
             dispatch({
-                type: LOGIN_ERROR
+                type: LOGIN_ERROR,
+                payload: error.response.data.msg 
             })
+            if( error.response.data.msg !== 'token not valide' ) actionAlert()
         }
     }
 
@@ -75,12 +81,12 @@ const AuthState = ({ children }) => {
             });
             userAuth();
         } catch (error) {
-            console.log(error.response.data.msg);
-            const alerta = error.response.data.msg;
+            console.log(error.response);
             dispatch({
                 type: LOGIN_ERROR,
-                payload: alerta
+                payload: error.response.data.msg
             })
+            if( error.response.data.msg !== 'token not valide' ) actionAlert()
         }
     }
 
@@ -89,7 +95,17 @@ const AuthState = ({ children }) => {
             type: CERRAR_SESION
         })
     }
-
+    const actionAlert = () => {
+        console.log('asdasdasasdads');
+        dispatch({
+            type: SHOW_ALERT
+        })
+        setTimeout(() => {
+            dispatch({
+                type: HIDE_ALERT
+            })  
+        }, 3000)
+    }
     return(
         <AuthContext.Provider
             value={{
@@ -98,6 +114,7 @@ const AuthState = ({ children }) => {
                 usuario: state.usuario,
                 msg: state.msg,
                 loading: state.loading,
+                alert: state.alert,
                 registerUser,
                 loginUser,
                 userAuth,
