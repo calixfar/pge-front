@@ -1,0 +1,22 @@
+.containerActionsUser {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+    margin-top: 15vh;
+}
+.contentActionsUser {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 130px;
+}
+.btnAction {
+    --size: 50px;
+    width: var(--size);
+    height: var(--size);
+    margin: 10px 10px 0 0;
+    border-radius: 3px;
+    font-size: 20px;
+    color: #ffffff;
+    border: solid 1px #ccc;
+}

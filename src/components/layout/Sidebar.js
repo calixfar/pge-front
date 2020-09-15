@@ -59,6 +59,12 @@ const SideBar = () => {
                             <p>Mapa</p>
                         </Link>
                     </li>
+                    <li className={`nav-item ${navActive === 'actividades' ? 'active' : ''}`} onClick={ () => changeActive('actividades')  }>
+                        <Link className="nav-link" to="/actividades">
+                            <i className="material-icons">library_books</i>
+                            <p>Actividades</p>
+                        </Link>
+                    </li>
                     {/* <li className={`nav-item ${navActive === 'notificaciones' ? 'active' : ''}`} onClick={ () => changeActive('notificaciones')  }>
                         <a className="nav-link" href="./notifications.html">
                             <i className="material-icons">notifications</i>

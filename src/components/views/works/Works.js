@@ -8,7 +8,7 @@ const Works = () => {
     const { getWorks, works, deleteWork } = workContext;
 
     const setColorStatus = (status_work) => {
-        const casesStatus = ['Sin_revisar', 'Problema', 'Navegacion', 'Inicio_tarea', 'Culminada']
+        const casesStatus = ['Sin_revisar', 'Problema', 'Navegacion', 'Inicio_tarea', 'Culminada', 'Vista'];
         switch (status_work) {
             case casesStatus[0]:
                 return '#000';
@@ -19,6 +19,8 @@ const Works = () => {
             case casesStatus[3]:
                 return '#EEE309';
             case casesStatus[4]:
+                return '#53CF07';
+            case casesStatus[5]:
                 return '#53CF07';
             default:
                 return '#9507CF';

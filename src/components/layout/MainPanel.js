@@ -13,6 +13,7 @@ import Place from '../views/places/Place';
 import Works from '../views/works/Works';
 import WorkState from '../views/works/context/workState';
 import Map from '../views/maps';
+import Activities from '../views/activities';
 import PrivateRoute from '../privateRoute';
 import AuthContext  from '../../context/auth/authContext';
 
@@ -50,6 +51,7 @@ const MainPanel = () => {
                                         <PrivateRoute path="/lugares" component={Places}/>
                                         <PrivateRoute path="/lugar/:id" component={Place}/>
                                         <PrivateRoute path="/mapa" component={Map}/>
+                                        <PrivateRoute path="/actividades" component={Activities}/>
                                         <WorkState>
                                             <PrivateRoute path="/tareas" component={Works}/>
                                         </WorkState>

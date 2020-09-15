@@ -36,7 +36,7 @@ const Teams = () => {
                             <div className="card-body">
                                 <div className="table-responsive">
                                     <table className="table">
-                                        <thead className=" text-primary">
+                                        <thead className="text-primary">
                                             <tr>
                                                 <th>
                                                     ID
