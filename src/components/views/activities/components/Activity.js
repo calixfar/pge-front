@@ -1,36 +1,66 @@
-import React from 'react';
-import ItemActivity from './ItemActivity';
+import React, {useState} from 'react';
 
-export default ({ type, activities }) => {
+export default ({ _id, name, status, changePermitFetch }) => {
+    const [state, setState] = useState({
+        name,
+        status
+    });
+    console.log('asddas',  _id, name, status, changePermitFetch);
+    const [permitEdit, setPermitEdit] = useState(false);
 
-    const renderedItemsActivities = () => {
-        return activities.map((item) => (
-            <ItemActivity/>
-        ))
+    const changeState = ({ target: { name, value } }) => {
+        setState({
+            ...state,
+            [name]: value
+        })
     }
+    const iconButton = permitEdit ? 'done' : 'edit';
+    const attrCheck = !permitEdit ? {disabled: 'disabled'} : {};
 
     return (
-        <div className="col-lg-6 col-md-12">
-            <div className="card">
-                <div className="card-header card-header-tabs card-header-primary">
-                <h4 class="card-title">{ type }</h4>
+        <tr style={{display: 'flex', alignItems: 'center'}}>
+            <td>
+                <div className="form-check">
+                    <label className="form-check-label">
+                        <input 
+                            className="form-check-input" 
+                            type="checkbox" 
+                            value={state.status} 
+                            onChange={changeState}
+                            {...attrCheck}
+                        />
+                        <span className="form-check-sign">
+                            <span className="check" />
+                        </span>
+                    </label>
                 </div>
-                <div className="card-body">
-                    <div className="tab-content">
-                        <div className="tab-pane active" id="profile">
-                            <table className="table">
-                                <tbody>
-                                
-                                    {renderedItemsActivities()}
-                                </tbody>
-                            </table>
-                            <div>
-                                Agregar un nuevo item
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+            </td>
+            <td style={{minWidth: '75%'}}>
+                { permitEdit ? 
+                    <div className="form-group">
+                        <input 
+                            value={state.name}
+                            className="form-control"
+                            name="name"
+                            onChange={changeState}
+                        />
+                    </div> : name
+                }
+            </td> 
+            <td className="td-actions text-right">
+                <button 
+                    type="button" 
+                    rel="tooltip" 
+                    title="Editar actividad" 
+                    className="btn btn-primary btn-link btn-sm" 
+                    onClick={() => setPermitEdit(!permitEdit)}
+                >
+                    <i className="material-icons">{ iconButton }</i>
+                </button>
+                <button type="button" rel="tooltip" title="Remove" className="btn btn-danger btn-link btn-sm">
+                    <i className="material-icons">close</i>
+                </button>
+            </td>
+        </tr>
     )
 }
