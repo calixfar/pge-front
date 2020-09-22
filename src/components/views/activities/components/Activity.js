@@ -1,20 +1,49 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
+import './styles/Activity.css';
+import Context from '../context/context';
 
 export default ({ _id, name, status, changePermitFetch }) => {
+
+    const { updateActivity, deleteActivity } = useContext(Context);
+
     const [state, setState] = useState({
         name,
         status
     });
-    console.log('asddas',  _id, name, status, changePermitFetch);
     const [permitEdit, setPermitEdit] = useState(false);
 
     const changeState = ({ target: { name, value } }) => {
+        if( name === 'status' ) value = !state.status;
         setState({
             ...state,
             [name]: value
         })
     }
-    const iconButton = permitEdit ? 'done' : 'edit';
+
+    const changePermitEdit = async () => {
+        if( permitEdit ) {
+            let res = await updateActivity(_id, state);
+            if( res.status ) {
+                changePermitFetch();
+            }
+        }
+        setPermitEdit(!permitEdit)
+    }
+
+    const changePermitClose = async () => {
+        if( permitEdit ) {
+            setPermitEdit(false);
+            return;
+        }
+        let res = await deleteActivity(_id, state);
+        if( res.status ) {
+            changePermitFetch();
+        }
+
+    }
+
+    const iconButtonEdit = permitEdit ? 'done' : 'edit';
+    const iconButtonDelete = permitEdit ? 'close' : 'delete_forever';
     const attrCheck = !permitEdit ? {disabled: 'disabled'} : {};
 
     return (
@@ -25,8 +54,9 @@ export default ({ _id, name, status, changePermitFetch }) => {
                         <input 
                             className="form-check-input" 
                             type="checkbox" 
-                            value={state.status} 
+                            name="status"
                             onChange={changeState}
+                            defaultChecked={state.status}
                             {...attrCheck}
                         />
                         <span className="form-check-sign">
@@ -53,12 +83,18 @@ export default ({ _id, name, status, changePermitFetch }) => {
                     rel="tooltip" 
                     title="Editar actividad" 
                     className="btn btn-primary btn-link btn-sm" 
-                    onClick={() => setPermitEdit(!permitEdit)}
+                    onClick={changePermitEdit}
                 >
-                    <i className="material-icons">{ iconButton }</i>
+                    <i className="material-icons">{ iconButtonEdit }</i>
                 </button>
-                <button type="button" rel="tooltip" title="Remove" className="btn btn-danger btn-link btn-sm">
-                    <i className="material-icons">close</i>
+                <button 
+                    type="button" 
+                    rel="tooltip" 
+                    title="Remove" 
+                    className="btn btn-danger btn-link btn-sm"
+                    onClick={changePermitClose}
+                >
+                    <i className="material-icons">{iconButtonDelete}</i>
                 </button>
             </td>
         </tr>

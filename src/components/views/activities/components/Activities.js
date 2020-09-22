@@ -15,10 +15,10 @@ export default ({ typeWorkId }) => {
 
     const fetchGetActivities = async () => {
         if( !permitFetch ) {
+            console.log('enter fetch');
             let res = await getActivities(typeWorkId);
-            console.log(res);
-            setpermitFetch(true);
             setActivities(res);
+            setpermitFetch(true);
         }
     }
 
@@ -31,7 +31,7 @@ export default ({ typeWorkId }) => {
         if(  res.status ) {
             setValueNewItem('');
             setShowInput(false);
-            changePermitFetch();
+            setpermitFetch(false);
         }
 
     }
@@ -42,11 +42,12 @@ export default ({ typeWorkId }) => {
             <ItemActivity changePermitFetch={changePermitFetch} key={activity._id} {...activity}/>
         ))
     }
-    const changePermitFetch = () => setpermitFetch(true);
+    const changePermitFetch = () => setpermitFetch(false);
 
     useEffect(() => {
+        console.log('permitFetch', permitFetch);
         fetchGetActivities();
-    })
+    }, [permitFetch]);
     
     return (
         <div className="tab-content">

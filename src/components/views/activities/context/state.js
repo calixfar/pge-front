@@ -21,7 +21,6 @@ export default ({ children }) => {
     const getTypesWorks = async () => {
         try {
             const res = await axiosClient.get('/api/v1/type-work');
-            console.log(res);
             dispatch({
                 type: GET_TYPES_WORK,
                 payload: res.data.typesWork
@@ -31,11 +30,20 @@ export default ({ children }) => {
         }
     }
 
+    const createTypeWork = async ( data ) => {
+        try {
+            const res = await axiosClient.post('/api/v1/type-work', data);
+            console.log(res);
+            getTypesWorks();
+
+        } catch (error) {
+            console.log(error.response);
+        }
+    }
+
     const getActivities = async (typeWorkId) => {
         try {
-            console.log('get activities');
             const res = await axiosClient.get(`/api/v1/activity/${typeWorkId}`);
-            console.log(res);
             return res.data.activities
             // dispatch({
             //     type: GET_ACTIVITIES,
@@ -57,12 +65,9 @@ export default ({ children }) => {
     }
     const updateActivity = async (id, data) => {
         try {
+            console.log(`/api/v1/activity/${id}`);
             const res = await axiosClient.put(`/api/v1/activity/${id}`, data);
-            dispatch({
-                type: UPDATE_ACTIVITY,
-                payload: res.data.msg
-            })
-            getActivities();
+            return { status: true, msg: res.data.msg }
         } catch (error) {
             console.log(error.response);
         }
@@ -70,11 +75,7 @@ export default ({ children }) => {
     const deleteActivity = async (id) => {
         try {
             const res = await axiosClient.delete(`/api/v1/activity/${id}`);
-            dispatch({
-                type: DELETE_ACTIVITY,
-                payload: res.data.msg
-            })
-            getActivities();
+            return { status: true, msg: res.data.msg }
         } catch (error) {
             console.log(error.response);
         }
@@ -88,6 +89,7 @@ export default ({ children }) => {
                 loading: state.loading,
                 msg: state.msg,
                 getTypesWorks,
+                createTypeWork,
                 getActivities,
                 createActivity,
                 updateActivity,

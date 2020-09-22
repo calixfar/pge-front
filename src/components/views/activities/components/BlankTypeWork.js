@@ -3,12 +3,12 @@ import './styles/BlankActivity.css';
 import Context from '../context/context';
 export default () => {
     
-    const { createActivity } = useContext(Context);
+    const { createTypeWork } = useContext(Context);
     const [type, setType] = useState('');
 
     const onClickCreate = () => {
         if( type === '' ) return;
-        createActivity({ type });
+        createTypeWork({ type });
         setType('');
     }
 
