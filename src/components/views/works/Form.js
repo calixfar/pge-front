@@ -3,10 +3,14 @@ import WorkContext from './context/WorkContext';
 import Swal from 'sweetalert2';
 import { withRouter } from 'react-router-dom';
 
-const FormTeam = ({  }) => {
+const FormWork = ({ work }) => {
+
     const workContext = useContext(WorkContext);
     const { getTeams, teams, getPlaces, places, registerWork } = workContext;
-    const initialState = {
+
+    const isInitialWork = work && Object.values(work).length > 0; 
+
+    const initialState = isInitialWork ? work : {
         place: '',
         address: '',
         latitude: '',
@@ -21,6 +25,7 @@ const FormTeam = ({  }) => {
     };
     const [state, setState] = useState(initialState);
     const [members, setMembers] = useState(null);
+    const [permitSearchMembers, setPermitSearchMembers] = useState(true);
 
     const handleBtnForm = () => {
         if(!valideVacieState())  {
@@ -92,6 +97,14 @@ const FormTeam = ({  }) => {
         getPlaces();
     }, []);
 
+    useEffect(() => {
+        if( permitSearchMembers &&isInitialWork && teams.length ) {
+            const team = teams.find(({_id}) => _id === work.team);
+            setMembers(team.members.filter(({ user: { type_user } }) => type_user === 'EMPLOYEE') );
+            setPermitSearchMembers(false);
+        }
+    })
+
     const { 
         place,
         address,
@@ -108,7 +121,7 @@ const FormTeam = ({  }) => {
         <div className="row">
             <div className={`col-md-12`}>
                 <div className="card">
-                    <div className="card-header card-header-success">
+                    <div className="card-header background-blue">
                     <h4 className="card-title">{ 'Registrar tarea' }</h4>
                     </div>
                     <div className="card-body">
@@ -275,7 +288,7 @@ const FormTeam = ({  }) => {
                             <div className="row d-flex justify-content-center mt-3">
                                 <button
                                     type="button"
-                                    className="btn btn-success pull-right"
+                                    className="btn background-blue pull-right"
                                     onClick={handleBtnForm}
                                 >REGISTRAR</button>
                                 <div className="clearfix" />
@@ -288,4 +301,4 @@ const FormTeam = ({  }) => {
     )
 }
 
-export default withRouter(FormTeam);
+export default withRouter(FormWork);

@@ -76,9 +76,11 @@ import {
      const getWork = async (id) => {
         try {
             const res = await axiosClient.get(`/api/v1/work/${id}`);
+            console.log('work data', res.data.work);
+            const data = formatDataForm(res.data.work);
              dispatch({
                  type: GET_WORK,
-                 payload: res.data.work
+                 payload: data
              })
         } catch (error) {
             dispatchError(error);
@@ -134,6 +136,19 @@ import {
         } catch (error) {
             console.log(error);
         }
+    }
+    const formatDataForm = (work) => {
+        const { team, place: { _id, address, name, latitude, longitude }, responsable } = work;
+        // "2020-09-26T08:36"
+        const data = {
+            ...work,
+            team: team._id,
+            responsable: responsable._id,
+            place: _id,
+            execution_date: work.execution_date.substr(0, work.execution_date.lastIndexOf(':')),
+            address, name, latitude, longitude
+        }
+        return data;
     }
     return(
         <WorkContext.Provider

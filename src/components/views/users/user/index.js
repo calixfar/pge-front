@@ -61,7 +61,7 @@ const User = ({ history }) => {
                 <div className="row">
                     <div className="col-md-12">
                         <div className="card">
-                            <div className="card-header card-header-primary">
+                            <div className="card-header background-blue">
                                 <h4 className="card-title">Editar Perfil de { name } {last_name} </h4>
                             </div>
                             <div className="card-body">
@@ -176,7 +176,7 @@ const User = ({ history }) => {
                                     </div>
                                     <button 
                                         type="button" 
-                                        className="btn btn-primary pull-right"
+                                        className="btn background-blue pull-right"
                                         onClick={handleBtnUpdate}
                                     >Actualizar</button>
                                     <div className="clearfix" />

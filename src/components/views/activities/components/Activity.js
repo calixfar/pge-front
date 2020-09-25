@@ -82,7 +82,7 @@ export default ({ _id, name, status, changePermitFetch }) => {
                     type="button" 
                     rel="tooltip" 
                     title="Editar actividad" 
-                    className="btn btn-primary btn-link btn-sm" 
+                    className="btn btn-success btn-link btn-sm" 
                     onClick={changePermitEdit}
                 >
                     <i className="material-icons">{ iconButtonEdit }</i>

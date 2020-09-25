@@ -107,7 +107,7 @@ const FormTeam = ({destinyForm, history, setFieldManager, getFieldManager, getTe
         <div className="row">
             <div className={`col-md-12`}>
                 <div className="card">
-                    <div className="card-header card-header-success">
+                    <div className="card-header background-blue">
                         <h4 className="card-title">{destinyForm === "register" ? 'Registrar Equipo' : 'Actualizar Equipo'} </h4>
                     </div>
                     <div className="card-body">
@@ -152,7 +152,7 @@ const FormTeam = ({destinyForm, history, setFieldManager, getFieldManager, getTe
                             <div className="row d-flex justify-content-center mt-3">
                                 <button
                                     type="button"
-                                    className="btn btn-success pull-right"
+                                    className="btn background-blue pull-right"
                                     onClick={handleBtnForm}
                                 >{destinyForm === "register" ? 'REGISTRAR' : 'ACTUALIZAR'}</button>
                                 <div className="clearfix" />

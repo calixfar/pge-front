@@ -70,7 +70,7 @@ const Users = () => {
                 <div className="row">
                     <div className="col-md-12">
                         <div className="card">
-                            <div className="card-header card-header-info d-flex">
+                            <div className="card-header background-blue d-flex">
                                 <div className="col-md-8">
                                     <h4 className="card-title ">Lista de usuarios</h4>
                                 </div>
@@ -87,7 +87,7 @@ const Users = () => {
                             <div className="card-body">
                                 <div className="table-responsive">
                                     <table className="table">
-                                        <thead className=" text-info">
+                                        <thead className="">
                                             <tr>
                                                 <th>
                                                     ID
@@ -128,7 +128,7 @@ const Users = () => {
                                                             { phone }
                                                         </td>
                                                         <td className="td-actions text-left">
-                                                            <Link to={`/usuario/${_id}`} type="button" rel="tooltip" title="Editar usuario" className="btn btn-primary btn-link btn-sm">
+                                                            <Link to={`/usuario/${_id}`} type="button" rel="tooltip" title="Editar usuario" className="btn btn-success btn-link btn-sm">
                                                                 <i className="material-icons">edit</i>
                                                             </Link>
                                                             <button 

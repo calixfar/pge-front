@@ -101,7 +101,7 @@ export default ({ typeWorkId }) => {
                 !showInput ?
                 <div className="row justify-content-center">
                     <button
-                        className="btn btn-primary pull-right"
+                        className="btn background-blue pull-right"
                         onClick={() => setShowInput(true)}
                     >Agregar un nuevo item</button>
                 </div> : ''

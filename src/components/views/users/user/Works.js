@@ -6,7 +6,7 @@ const Works = ({works}) => {
         <div className="row">
             <div className="col-md-12">
                 <div className="card">
-                    <div className="card-header card-header-primary d-flex">
+                    <div className="card-header background-blue d-flex">
                         <div className="con-md-12">
                             <h4 className="car-title">Lista de tareas</h4>
                         </div>

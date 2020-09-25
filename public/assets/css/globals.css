@@ -1,0 +1,10 @@
+.background-blue {
+    background-color: #1b458f !important;
+}
+.nav-item.background-blue a {
+    color: #fff !important;
+}
+.card-title {
+    color: #fff !important;
+    font-weight: bold;
+}

@@ -1,6 +1,7 @@
 import React, { useEffect, useContext } from 'react';
 import WorkContext from './context/WorkContext';
 import Form from './Form';
+import { Link } from 'react-router-dom';
 // import Form from './Form';
 const Works = () => {
 
@@ -38,13 +39,13 @@ const Works = () => {
                 <div className="row">
                     <div className="col-md-12">
                         <div className="card">
-                            <div className="card-header card-header-success">
+                            <div className="card-header background-blue">
                                 <h4 className="card-title ">Lista de Tareas</h4>
                             </div>
                             <div className="card-body">
                                 <div className="table-responsive">
                                     <table className="table">
-                                        <thead className=" text-success">
+                                        <thead className="">
                                             <tr>
                                                 <th>
                                                     #
@@ -91,9 +92,9 @@ const Works = () => {
                                                             { status_work }
                                                         </td>
                                                         <td className="td-actions text-left">
-                                                            {/* <Link to={`/lugar/${_id}`} type="button" rel="tooltip" title="Editar lugar" className="btn btn-primary btn-link btn-sm">
+                                                            <Link to={`/tarea/${_id}`} type="button" rel="tooltip" title="Editar lugar" className="btn btn-primary btn-link btn-sm">
                                                                 <i className="material-icons">edit</i>
-                                                            </Link> */}
+                                                            </Link>
                                                             <button 
                                                                 type="button" 
                                                                 rel="tooltip" 

@@ -105,7 +105,7 @@ const RegisterUser = () => {
             <div className="row">
                         <div className="col-md-12">
                             <div className="card">
-                                <div className="card-header card-header-info">
+                                <div className="card-header background-blue">
                                     <h4 className="card-title">Crear Usuario </h4>
                                 </div>
                                 <div className="card-body">
@@ -219,7 +219,7 @@ const RegisterUser = () => {
                                         </div>
                                         <button 
                                             type="button" 
-                                            className="btn btn-primary pull-right"
+                                            className="btn background-blue pull-right"
                                             onClick={handleBtnCreate}
                                         >Crear</button>
                                         <div className="clearfix" />

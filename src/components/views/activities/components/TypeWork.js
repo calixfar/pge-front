@@ -11,7 +11,7 @@ export default ({ _id, type }) => {
     return (
         <div className="col-lg-6 col-md-12">
             <div className="card">
-                <div className="card-header card-header-tabs card-header-primary">
+                <div className="card-header card-header-tabs background-blue">
                 <h4 class="card-title">{ type }</h4>
                 </div>
                 <div className="card-body">

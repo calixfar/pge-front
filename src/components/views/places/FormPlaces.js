@@ -221,7 +221,7 @@ const FormPlace = ({ destinyForm, history, getPlaces }) => {
         <div className="row">
             <div className="col-lg-12 col-md-12">
                 <div className="card">
-                    <div className="card-header card-header-tabs card-header-primary">
+                    <div className="card-header card-header-tabs background-blue">
                         <div className="nav-tabs-navigation">
                             <div className="nav-tabs-wrapper">
                                 <span className="nav-tabs-title">Registro</span>
@@ -386,7 +386,7 @@ const FormPlace = ({ destinyForm, history, getPlaces }) => {
                                         </div>
                                         <button
                                             type="button"
-                                            className="btn btn-primary pull-right"
+                                            className="btn background-blue pull-right"
                                             onClick={handleBtnCreate}
                                         >{ destinyForm === 'register' ? 'CREAR' : 'ACTUALIZAR' }</button>
                                         <div className="clearfix" />
@@ -415,7 +415,7 @@ const FormPlace = ({ destinyForm, history, getPlaces }) => {
                                    <div className="col-md-4">
                                    <button
                                             type="button"
-                                            className="btn btn-primary pull-right"
+                                            className="btn background-blue pull-right"
                                             onClick={ sendExcelFile }
                                         >SUBIR</button>
                                    </div>

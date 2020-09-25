@@ -57,7 +57,7 @@ const TeamUpdate = () => {
                                     <p className="card-description">
                                         Celular: {fieldManager.phone}
                                     </p>
-                                    <Link to={`/usuario/${fieldManager._id}`} className="btn btn-success btn-round">VER</Link>
+                                    <Link to={`/usuario/${fieldManager._id}`} className="btn background-blue btn-round">VER</Link>
                                 </div>
                             </div>
                         </div>
