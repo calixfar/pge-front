@@ -11,7 +11,9 @@ import {
     UPDATE_WORK,
     DELETE_WORK,
     GET_TEAMS,
-    GET_PLACES
+    GET_PLACES,
+    GET_TYPES_WORK,
+    GET__WORK_ACTIVITIES,
  } from './types';
 
 
@@ -21,6 +23,8 @@ import {
          work: {},
          teams: [],
          places: [],
+         typesWork: [],
+         activitiesByWork: [],
          form: {
             place: '',
             team: '',
@@ -45,21 +49,21 @@ import {
         showErrorAlert(msg);
      }
 
-     const registerWork = (data) => {
-         const callback = async () => {
-             try {
-                 const res = await axiosClient.post('/api/v1/work', data);
-                 dispatch({
-                     type: SUCCESS_REGISTRY,
-                     payload: res.data.msg
-                 });
-                 getWorks();
-                 ShowSuccessMessage();
-             } catch (error) {
-                dispatchError(error);
-             }
-         }
-         callback();
+     const registerWork = async (data) => {
+        try {
+            const res = await axiosClient.post('/api/v1/work', data);
+            dispatch({
+                type: SUCCESS_REGISTRY,
+                payload: res.data.msg
+            });
+            getWorks();
+            ShowSuccessMessage();
+            
+            return true;
+        } catch (error) {
+            dispatchError(error);
+            return false;
+        }
      };
      const getWorks = async () => {
         try {
@@ -137,6 +141,44 @@ import {
             console.log(error);
         }
     }
+    const getTypesWork = async () => {
+        try {
+            const res = await axiosClient.get('/api/v1/type-work');
+            dispatch({
+                type: GET_TYPES_WORK,
+                payload: res.data.typesWork
+            })
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const getActivitiesByWork = async (workId) => {
+        try {
+            const res = await axiosClient.get(`/api/v1/work-activity/${workId}`);
+            dispatch({
+                type: GET__WORK_ACTIVITIES,
+                payload: res.data.activities
+            })
+
+        } catch (error) {
+            console.log(error.response);
+        }
+    }
+
+    const getWorksBySearch = async (search) => {
+        try {
+            const res = await axiosClient.get(`/api/v1/work-search/${search}`);
+            console.log(res);
+             dispatch({
+                 type: GET_WORKS,
+                 payload: res.data.works
+             })
+        } catch (error) {
+            dispatchError(error);
+        }
+    }
+
     const formatDataForm = (work) => {
         const { team, place: { _id, address, name, latitude, longitude }, responsable } = work;
         // "2020-09-26T08:36"
@@ -157,14 +199,19 @@ import {
                 work: state.work,
                 teams: state.teams,
                 places: state.places,
+                typesWork: state.typesWork,
                 msg: state.msg,
+                activitiesByWork: state.activitiesByWork,
                 registerWork,
                 getWorks,
                 getWork,
                 updateWork,
                 deleteWork,
                 getTeams,
-                getPlaces
+                getPlaces,
+                getTypesWork,
+                getActivitiesByWork,
+                getWorksBySearch
             }}
         >
             { children }

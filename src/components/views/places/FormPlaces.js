@@ -4,6 +4,7 @@ import AuthContext from '../../../context/auth/authContext';
 import Swal from 'sweetalert2';
 import { withRouter } from 'react-router-dom';
 import  XLSX  from 'xlsx';
+import { zoneItems } from './types/zones';
 
 const FormPlace = ({ destinyForm, history, getPlaces }) => {
     const authContext = useContext(AuthContext);
@@ -22,7 +23,7 @@ const FormPlace = ({ destinyForm, history, getPlaces }) => {
         latitude: '',
         longitude: '',
         type_station: '',
-
+        zone: ''
     };
 
     const inputFileRef = useRef('') ;
@@ -51,7 +52,7 @@ const FormPlace = ({ destinyForm, history, getPlaces }) => {
     }
 
     const validePropertyNamesExcel = (data) => {
-        const propertyNames = ['code_site', 'name', 'address', 'city', 'department', 'structure', 'owner', 'latitude', 'longitude', 'type_station'];
+        const propertyNames = ['code_site', 'name', 'address', 'city', 'department', 'zone', 'structure', 'owner', 'latitude', 'longitude', 'type_station'];
         let inValide = false;
         for(let j in data) {
             const excelPropertyNames = Object.keys(data[j]);
@@ -215,7 +216,8 @@ const FormPlace = ({ destinyForm, history, getPlaces }) => {
         owner,
         latitude,
         longitude,
-        type_station } = place;
+        type_station, 
+        zone } = place;
 
     return (
         <div className="row">
@@ -248,7 +250,7 @@ const FormPlace = ({ destinyForm, history, getPlaces }) => {
                                 <div className="card-body">
                                     <form>
                                         <div className="row mt-2">
-                                            <div className="col-md-6">
+                                            <div className="col-md-4">
                                                 <div className="form-group">
                                                     <label >Código Sitio</label>
                                                     <input
@@ -259,7 +261,7 @@ const FormPlace = ({ destinyForm, history, getPlaces }) => {
                                                     />
                                                 </div>
                                             </div>
-                                            <div className="col-md-6">
+                                            <div className="col-md-4">
                                                 <div className="form-group">
                                                     <label >Nombre</label>
                                                     <input
@@ -268,6 +270,22 @@ const FormPlace = ({ destinyForm, history, getPlaces }) => {
                                                         className="form-control"
                                                         onChange={changeState}
                                                     />
+                                                </div>
+                                            </div>
+                                            <div className="col-md-4">
+                                                <div className="form-group bmd-form-group">
+                                                    <label className="bmd-label-static">Zona</label>
+                                                    <select
+                                                        value={zone}
+                                                        name="zone"
+                                                        className="form-control"
+                                                        onChange={changeState}
+                                                    >
+                                                        <option value="">Selecciona una opción</option>
+                                                        { zoneItems.map(({ id, text, value }) => (
+                                                            <option key={id} value={value}>{text}</option>
+                                                        )) }
+                                                    </select>
                                                 </div>
                                             </div>
                                         </div>

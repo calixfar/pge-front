@@ -15,8 +15,10 @@ import Work from '../views/works/Work';
 import WorkState from '../views/works/context/workState';
 import Map from '../views/maps';
 import Activities from '../views/activities';
+import Dashboard from '../views/dashboard';
 import PrivateRoute from '../privateRoute';
 import AuthContext  from '../../context/auth/authContext';
+import DashboardState  from '../views/dashboard/context/state';
 
 import ViewEmpolyee from '../views/employee/employee';
 
@@ -44,7 +46,9 @@ const MainPanel = () => {
                             <Switch>
                                     <>
                                         <Route exact path="/" component={Login}/>
-                                        <PrivateRoute exact path="/home" component={Content}/>
+                                        <DashboardState>
+                                            <PrivateRoute exact path="/home" component={Dashboard}/>
+                                        </DashboardState>
                                         <PrivateRoute path="/usuarios" component={Users}/>
                                         <PrivateRoute path="/usuario/:id" component={User}/>
                                         <PrivateRoute path="/equipos" component={Teams}/>

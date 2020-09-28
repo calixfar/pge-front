@@ -1,14 +1,18 @@
 import React, { useContext, useEffect, useState } from 'react';
 import axiosClient from '../../../config/axios';
-import AuthContext from '../../../context/auth/authContext';
 import FormTeam from './FormTeam';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import Swal from 'sweetalert2';
-const TeamUpdate = () => {
+import Members from './Members';
 
-    const [fieldManager, setFieldManager] = useState({});
+const TeamUpdate = ({ history }) => {
+
+    const [fieldManager, setFieldManager] = useState(null);
     const [dataFieldManager, setDataFieldManager] = useState({});
-    const [showField, setShowField] = useState(false)
+    const [showField, setShowField] = useState(true);
+
+    const [team, setTeam] = useState(null);
+
     const getFieldManager = async (id) => {
         try {
             if (id === null) {
@@ -22,14 +26,41 @@ const TeamUpdate = () => {
             setFieldManager(searchUser.data.user);
             setShowField(true);
         } catch (error) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Error...',
-                text: error.response.data.msg
-            })
+            console.log(error.data);
+            // Swal.fire({
+            //     icon: 'error',
+            //     title: 'Error...',
+            //     text: error.response.data.msg
+            // })
         }
     }
+
+    const getTeam = async (idTeam) => {
+        try {
+            console.log('entro');
+            const searchTeam = await axiosClient.get(`/api/v1/team/${idTeam}`);
+            console.log('object', searchTeam)
+            setTeam(searchTeam.data.team);
+            setFieldManager(searchTeam.data.team.field_manager);
+        } catch (error) {
+            console.log(error)
+            // Swal.fire({
+            //     icon: 'error',
+            //     title: 'Error...',
+            //     text: error.response.data.msg
+            // })
+            console.log(error.response);
+        }
+    }
+
+    useEffect( () => {
+        const { pathname } = history.location;
+            const idUrl = pathname.substring(pathname.lastIndexOf('equipo/') + 7, pathname.length);
+            getTeam(idUrl);
+    }, []);
     // const showField = fieldManager === null ? false : true
+
+    if( !team ) return <></>;
     return (
         <div className="content">
             <div className="container-fluid">
@@ -39,21 +70,25 @@ const TeamUpdate = () => {
                             setFieldManager={setFieldManager}
                             destinyForm="update"
                             getFieldManager={getFieldManager}
+                            dataTeam={team}
                         />
                     </div>
 
                     {
-                        showField &&
+                        showField && fieldManager &&
                         <div className="col-md-4">
-                            <div className="card card-profile">
+                            <div style={{height: '84%'}} className="card card-profile">
                                 <div className="card-avatar">
-                                    <a href="javascript:;">
-                                        <img className="img" src="../assets/img/faces/marc.jpg" />
-                                    </a>
+                                    <div className="icon-name">
+                                        { fieldManager.name.substr(0,1).toUpperCase() }
+                                    </div>
                                 </div>
                                 <div className="card-body">
                                     <h6 className="card-category text-gray">FIELD MANAGER</h6>
-                                    <h4 className="card-title">{fieldManager.name} {fieldManager.last_name}</h4>
+                                    <h4 
+                                        className="card-title background-blue"
+                                        style={{}}
+                                    >{fieldManager.name} {fieldManager.last_name}</h4>
                                     <p className="card-description">
                                         Celular: {fieldManager.phone}
                                     </p>
@@ -63,9 +98,10 @@ const TeamUpdate = () => {
                         </div>
                     }
                 </div>
+                <Members users={team.members}/>
             </div>
         </div>
     )
 }
 
-export default TeamUpdate;
+export default withRouter(TeamUpdate);

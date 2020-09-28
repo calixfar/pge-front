@@ -6,7 +6,9 @@ import {
     DELETE_WORK,
     GET_TEAMS,
     GET_PLACES,
-    ERROR_OPERATION
+    ERROR_OPERATION,
+    GET_TYPES_WORK,
+    GET__WORK_ACTIVITIES
  } from './types';
 
  export default (state, action) => {
@@ -23,7 +25,9 @@ import {
             return {
                 ...state,
                 msg: '',
-                works: action.payload
+                works: action.payload,
+                work: {},
+                activitiesByWork: []
             }
         case GET_WORK :
             return {
@@ -41,6 +45,18 @@ import {
             return {
                 ...state,
                 places: action.payload
+            }
+        }
+        case GET_TYPES_WORK: {
+            return {
+                ...state,
+                typesWork: action.payload
+            }
+        }
+        case GET__WORK_ACTIVITIES: {
+            return {
+                ...state,
+                activitiesByWork: action.payload
             }
         }
         default:

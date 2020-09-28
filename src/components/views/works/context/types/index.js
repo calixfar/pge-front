@@ -6,3 +6,5 @@ export const UPDATE_WORK = 'UPDATE_WORK';
 export const GET_TEAMS = 'GET_TEAMS';
 export const GET_PLACES = 'GET_PLACES';
 export const DELETE_WORK = 'DELETE_WORK';
+export const GET_TYPES_WORK = 'GET_TYPES_WORK';
+export const GET__WORK_ACTIVITIES = 'GET__WORK_ACTIVITIES';

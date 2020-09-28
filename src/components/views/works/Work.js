@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import Context from './context/WorkContext';
 import { withRouter } from 'react-router-dom';
 import Form from './Form';
+import CardActivities from './components/CardActivities';
 
 export default withRouter(({ history }) => {
 
@@ -25,6 +26,9 @@ export default withRouter(({ history }) => {
         <div className="content">
             <div className="container-fluid">
                 <Form work={work}/>
+                <div className="row">
+                    <CardActivities workId={work._id}/>
+                </div>
             </div>
 
         </div>

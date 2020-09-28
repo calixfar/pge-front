@@ -4,6 +4,7 @@ import AuthContext from '../../../context/auth/authContext';
 import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import FormPlace from './FormPlaces';
+import Search from '../../general/Search';
 
 const Places = () => {
     const authContext = useContext(AuthContext);
@@ -19,6 +20,16 @@ const Places = () => {
         const searchPlaces = await axiosClient.get('/api/v1/place');
         setPlaces(searchPlaces.data.places);
     }
+
+    const getPlacesBySearch = async (search) => {
+        try {
+            const res = await axiosClient.get(`/api/v1/place-search/${search}`);
+            setPlaces(res.data.places);
+        } catch (error) {
+            return;
+        }
+    }
+
     useEffect( () => {
         getPlaces();
         console.log(places)
@@ -57,7 +68,12 @@ const Places = () => {
                     <div className="col-md-12">
                         <div className="card">
                             <div className="card-header background-blue">
-                                <h4 className="card-title ">Lista de lugares</h4>
+                                <div className="row">
+                                    <div className="col-md-8">
+                                        <h4 className="card-title ">Lista de lugares</h4>
+                                    </div>
+                                    <Search fetchBySearch={ getPlacesBySearch } />
+                                </div>
                             </div>
                             <div className="card-body">
                                 <div className="table-responsive">
@@ -74,7 +90,7 @@ const Places = () => {
                                                     Nombre
                                                 </th>
                                                 <th>
-                                                    Ciudad
+                                                    Zona
                                                 </th>
                                                 <th>
                                                     Propietario
@@ -88,7 +104,7 @@ const Places = () => {
                                             </tr></thead>
                                         <tbody>
                                             {
-                                                places.map(({ _id, name, city, code_site, owner }, index) => (
+                                                places.map(({ _id, name, zone, code_site, owner }, index) => (
                                                     <tr key={_id}>
                                                         <td>
                                                             { index + 1}
@@ -100,7 +116,7 @@ const Places = () => {
                                                             { name } 
                                                         </td>
                                                         <td>
-                                                            { city }
+                                                            { zone }
                                                         </td>
                                                         <td>
                                                             { owner }

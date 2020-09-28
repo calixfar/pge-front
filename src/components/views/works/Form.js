@@ -6,7 +6,16 @@ import { withRouter } from 'react-router-dom';
 const FormWork = ({ work }) => {
 
     const workContext = useContext(WorkContext);
-    const { getTeams, teams, getPlaces, places, registerWork } = workContext;
+    const { getTeams, 
+        teams, 
+        getPlaces, 
+        places, 
+        registerWork, 
+        updateWork,
+        getTypesWork,
+        typesWork } = workContext;
+
+        console.log(getTypesWork, typesWork)
 
     const isInitialWork = work && Object.values(work).length > 0; 
 
@@ -27,7 +36,7 @@ const FormWork = ({ work }) => {
     const [members, setMembers] = useState(null);
     const [permitSearchMembers, setPermitSearchMembers] = useState(true);
 
-    const handleBtnForm = () => {
+    const handleBtnForm = async () => {
         if(!valideVacieState())  {
             Swal.fire({
                 title: 'Campos vacíos...',
@@ -40,8 +49,12 @@ const FormWork = ({ work }) => {
         console.log(state.execution_date);
         copyState.execution_date = new Date(state.execution_date);
         console.log(copyState);
-        registerWork(copyState);
-        setState(initialState);
+        if( isInitialWork ) {
+            updateWork(copyState);
+            return;
+        }
+        let result = await registerWork(copyState);
+        if( result ) setState(initialState);
     }
     const valideVacieState = () => {
         let valide = true;
@@ -95,6 +108,7 @@ const FormWork = ({ work }) => {
     useEffect(() => {
         getTeams();
         getPlaces();
+        getTypesWork();
     }, []);
 
     useEffect(() => {
@@ -248,9 +262,14 @@ const FormWork = ({ work }) => {
                                             onChange={changeState}
                                         >
                                             <option value="">Selecciona una opción</option>
-                                            <option value="implementacion">Implementación</option>
-                                            <option value="integracion">Integración</option>
-                                            <option value="toma_documentacion">Toma Documentación</option>
+                                            {
+                                                typesWork.map(( typeWork ) => (
+                                                    <option 
+                                                        key={ typeWork._id }
+                                                        value={ typeWork._id }
+                                                >{ typeWork.type }</option>
+                                                ))
+                                            }
                                         </select>
                                     </div>
                                 </div>
@@ -290,7 +309,7 @@ const FormWork = ({ work }) => {
                                     type="button"
                                     className="btn background-blue pull-right"
                                     onClick={handleBtnForm}
-                                >REGISTRAR</button>
+                                >{isInitialWork ? 'ACTUALIZAR' : 'REGISTRAR'}</button>
                                 <div className="clearfix" />
                             </div>
                         </form>

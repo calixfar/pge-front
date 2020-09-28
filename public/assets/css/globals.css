@@ -8,3 +8,18 @@
     color: #fff !important;
     font-weight: bold;
 }
+.color-white {
+    color: #fff !important;
+}
+.icon-name {
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    font-size: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #06a8f4;
+    color: #fff !important;
+    font-weight: bold;
+}

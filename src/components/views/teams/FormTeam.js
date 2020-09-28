@@ -4,14 +4,14 @@ import AuthContext from '../../../context/auth/authContext';
 import Swal from 'sweetalert2';
 import { withRouter } from 'react-router-dom';
 
-const FormTeam = ({destinyForm, history, setFieldManager, getFieldManager, getTeams}) => {
+const FormTeam = ({destinyForm, history, getFieldManager, getTeams, dataTeam}) => {
     const authContext = useContext(AuthContext);
     const { userAuth } = authContext;
     const initialState = {
         name: '',
         field_manager: null
     };
-    const [team, setTeam] = useState({});
+    const [team, setTeam] = useState(dataTeam ? dataTeam : {});
     const [usersField, setUsersField] = useState([]);
     const [id, setId] = useState('');
 
@@ -28,23 +28,6 @@ const FormTeam = ({destinyForm, history, setFieldManager, getFieldManager, getTe
             ...team,
             [e.target.name]: e.target.value
         })
-    }
-    const getTeam = async (idTeam) => {
-        try {
-            console.log('entro');
-            const searchTeam = await axiosClient.get(`/api/v1/team/${idTeam}`);
-            console.log('object', searchTeam)
-            setFieldManager(searchTeam.data.team.field_manager);
-            setTeam(searchTeam.data.team);
-        } catch (error) {
-            console.log(error)
-            Swal.fire({
-                icon: 'error',
-                title: 'Error...',
-                text: error.response.data.msg
-            })
-            console.log(error.response);
-        }
     }
     const getFieldsManager = async () => {
         try {
@@ -98,7 +81,6 @@ const FormTeam = ({destinyForm, history, setFieldManager, getFieldManager, getTe
             const { pathname } = history.location;
             const idUrl = pathname.substring(pathname.lastIndexOf('equipo/') + 7, pathname.length);
             setId(idUrl);
-            getTeam(idUrl);
             getFieldsManager(team.field_manager);
         }
     }, [id]);

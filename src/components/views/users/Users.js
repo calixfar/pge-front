@@ -76,7 +76,7 @@ const Users = () => {
                                 </div>
                                 <div className="col-md-4">
                                     <div className="input-group">
-                                        <input type="text" value={nameFilter} onChange={updateNameFilter} class="form-control" placeholder="Buscar Usuario"/>
+                                        <input type="text" value={nameFilter} onChange={updateNameFilter} class="form-control color-white" placeholder="Buscar Usuario"/>
                                         <button onClick={ updatePermitSearch } type="button" class="btn btn-white btn-round btn-just-icon">
                                             <i class="material-icons">search</i>
                                             <div class="ripple-container"></div>

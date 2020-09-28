@@ -1,12 +1,13 @@
 import React, { useEffect, useContext } from 'react';
 import WorkContext from './context/WorkContext';
 import Form from './Form';
+import Search from '../../general/Search';
 import { Link } from 'react-router-dom';
 // import Form from './Form';
 const Works = () => {
 
     const workContext = useContext(WorkContext);
-    const { getWorks, works, deleteWork } = workContext;
+    const { getWorks, works, deleteWork, getWorksBySearch } = workContext;
 
     const setColorStatus = (status_work) => {
         const casesStatus = ['Sin_revisar', 'Problema', 'Navegacion', 'Inicio_tarea', 'Culminada', 'Vista'];
@@ -31,6 +32,7 @@ const Works = () => {
     useEffect(() => {
         getWorks();
     }, [])
+    
     return (
         <div className="content">
             <div className="container-fluid">
@@ -40,7 +42,12 @@ const Works = () => {
                     <div className="col-md-12">
                         <div className="card">
                             <div className="card-header background-blue">
-                                <h4 className="card-title ">Lista de Tareas</h4>
+                                <div className="row">
+                                    <div className="col-md-8">
+                                        <h4 className="card-title ">Lista de tareas</h4>
+                                    </div>
+                                    <Search fetchBySearch={ getWorksBySearch }/>
+                                </div>
                             </div>
                             <div className="card-body">
                                 <div className="table-responsive">
