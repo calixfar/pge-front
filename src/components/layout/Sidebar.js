@@ -29,16 +29,16 @@ const SideBar = () => {
                             <p>Home</p>
                         </Link>
                     </li>
-                    <li className={`nav-item ${navActive === 'usuarios' ? 'background-blue' : ''}`} onClick={ () => changeActive('usuarios')  }>
-                        <Link className="nav-link" to="/usuarios">
-                            <i className="material-icons">person</i>
-                            <p>Usuarios</p>
-                        </Link>
-                    </li>
                     <li style={{display: `${usuario.type_user != 'ADMIN' ? 'none' : 'block'}`}} className={`nav-item ${navActive === 'equipos' ? 'background-blue' : ''}`} onClick={ () => changeActive('equipos')  }>
                         <Link className="nav-link" to="/equipos">
                             <i className="material-icons">content_paste</i>
                             <p>Equipos</p>
+                        </Link>
+                    </li>
+                    <li className={`nav-item ${navActive === 'usuarios' ? 'background-blue' : ''}`} onClick={ () => changeActive('usuarios')  }>
+                        <Link className="nav-link" to="/usuarios">
+                            <i className="material-icons">person</i>
+                            <p>Usuarios</p>
                         </Link>
                     </li>
                     <li className={`nav-item ${navActive === 'tareas' ? 'background-blue' : ''}`} onClick={ () => changeActive('tareas')  }>

@@ -1,28 +1,19 @@
-import React, { useContext, useEffect } from 'react';
-import Context from '../context/context';
+import React from 'react';
 import SummaryStatusWork from './SummaryStatusWork';
 
-const ListSummaryStatusWork = () => {
+const ListSummaryStatusWork = ({ data, total }) => {
 
-    const { getCountWorks, filterZone, countWorks } = useContext(Context);
-
-    console.log(countWorks);
-
-    useEffect(() => {
-        getCountWorks();
-    }, [filterZone]);
-
+  
     let renderedSummarys = () => {
-
-        return Object.values(countWorks).map((value, index) => Object.keys(countWorks)[index] !== 'count' ? (
+        return data.map(( { value, status } ) => (
             <SummaryStatusWork 
                 value={value}
-                status={Object.keys(countWorks)[index]}
-                total={countWorks.count}
+                status={status}
+                total={total}
             />
-        ) : '')
+        ))
     }
-    if ( !countWorks ) return <></>;
+    
     return (
         <div className="row">
             {

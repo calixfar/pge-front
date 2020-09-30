@@ -1,13 +1,14 @@
 import React, { useContext } from 'react';
 import { zoneItems } from '../../../../types/zones';
 import Context from '../context/context';
+// import ButtonPdf from './ButtonPdf' 
 
 const FilterZones = () => {
 
     const { filterZone, changeFilterZone } = useContext(Context);
 
     return (
-        <div className="col-md-12">
+        <div className="col-md-12 filterZones">
             <div className="card card-stats">
                 <div className="card-header card-header-warning card-header-icon">
                     <div className="card-icon">
@@ -35,6 +36,7 @@ const FilterZones = () => {
                                 </div>
                             ))
                         }
+                        {/* <ButtonPdf/> */}
                     </div>
                 </div>
             </div>
