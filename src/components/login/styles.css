@@ -1,0 +1,33 @@
+.container-login {
+    width: 90%;
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+    max-width: 500px;
+}
+
+.background-gray {
+    background: #757575 !important;
+}
+
+.text-error {
+    overflow: hidden;
+    margin: 0;
+    color: red;
+    font-size: 14px;
+    max-height: 0;
+    transition: max-height 0.3s ease-in ;
+}
+.show-error {
+    max-height: 30px;
+    margin-top: 10px;
+}
+
+@media only screen and ( min-width: 1024px ) {
+    .container-login {
+        max-width: none;
+        width: 650px;
+        top: 60%;
+        right: 8%;
+    }
+}

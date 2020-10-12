@@ -1,25 +1,44 @@
  import React, {useState, useEffect, useContext} from 'react';
 import { withRouter } from 'react-router-dom';
 import AuthContext from '../../context/auth/authContext';
-
+import './styles.css';
 const Login = ({ history }) => {
 
     //coment
     const authContext = useContext(AuthContext);
     
     const {msg, auth, loginUser, alert} = authContext;
-    console.log('alert', alert);
+
+    const actionBackgroundImage = (type) => {
+        const wrapper = document.querySelector('#root > .wrapper');
+        switch (type) {
+            case 'add':
+                wrapper.classList.add('background-image');
+                break;
+            case 'remove':
+                wrapper.classList.remove('background-image');
+                break;
+        
+            default:
+                break;
+        }
+    }
+
     useEffect(() => {
         if(auth) {
             history.push('/home');
         }
-        if(msg !== null) {
+        if(msg !== null && msg !== 'token not valide') {
             setError(true);
             setTimeout(() => {
                 setError(false)
             }, 3000);
         }
     }, [msg, auth, history]);
+
+    useEffect(() => {
+        actionBackgroundImage('add');
+    }, []);
     const [state, setState] = useState({
         email: '',
         password: ''
@@ -54,58 +73,54 @@ const Login = ({ history }) => {
     )
     return (
         <div className="content">
-            <div className="container-fluid">
-                <div className="row d-flex justify-content-center">
-                    <div className="col-md-6">
-                        <div className="card">
-                            <div className="card-header card-header-primary">
-                                <h4 className="card-title">INICIO DE SESIÓN</h4>
-                                <p className="card-category">Completa los campos para ingresar</p>
-                            </div>
-                            <div className="card-body">
-                                <form>
-                                    <div className="row">
-                                        <div className="col-md-12">
-                                            <div className="form-group">
-                                                <label className="bmd-label-floating">Email</label>
-                                                <input 
-                                                    type="email" 
-                                                    name="email" 
-                                                    className="form-control" 
-                                                    onChange={ changeState }
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="row">
-                                        <div className="col-md-12">
-                                            <div className="form-group">
-                                                <label className="bmd-label-floating">Contraseña</label>
-                                                <input 
-                                                    type="password" 
-                                                    name="password" 
-                                                    className="form-control" 
-                                                    onChange={ changeState }
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="row d-flex justify-content-center">
-                                        <button 
-                                            type="button" 
-                                            className="btn btn-primary col-md-8"
-                                            onClick={handlerBtnLogin}
-                                        >ENTRAR</button>
-                                    </div>
-                                    <div className="clearfix" />
-                                </form>
+            <div 
+                className="card container-login">
+                <div className="card-header card-header-primary background-gray">
+                    <h4 className="card-title">INICIO DE SESIÓN</h4>
+                    <p className="card-category">Completa los campos para ingresar</p>
+                </div>
+                <div className="card-body">
+                    <form>
+                        <div className="row">
+                            <div className="col-md-12">
+                                <div className="form-group">
+                                    <label className="bmd-label-floating">Email</label>
+                                    <input 
+                                        type="email" 
+                                        name="email" 
+                                        className="form-control" 
+                                        onChange={ changeState }
+                                    />
+                                </div>
                             </div>
                         </div>
-
-                    </div>
+                        <div className="row">
+                            <div className="col-md-12">
+                                <div className="form-group">
+                                    <label className="bmd-label-floating">Contraseña</label>
+                                    <input 
+                                        type="password" 
+                                        name="password" 
+                                        className="form-control" 
+                                        onChange={ changeState }
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        <div className="row d-flex justify-content-center">
+                            <button 
+                                type="button" 
+                                className="btn background-gray col-md-8"
+                                onClick={handlerBtnLogin}
+                            >ENTRAR</button>
+                        </div>
+                        <div className="row d-flex justify-content-center">
+                            <p className={ `text-error ${ error ? 'show-error' : '' }` }>{ msg }</p>
+                        </div>
+                        <div className="clearfix" />
+                    </form>
                 </div>
             </div>
-            {renderAlert()}
         </div>
     )
 }

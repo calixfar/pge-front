@@ -5,13 +5,26 @@ const ListSummaryStatusWork = ({ data, total }) => {
 
   
     let renderedSummarys = () => {
-        return data.map(( { value, status } ) => (
-            <SummaryStatusWork 
-                value={value}
-                status={status}
-                total={total}
-            />
-        ))
+        
+        return (
+            <>
+                <SummaryStatusWork 
+                    value={total}
+                    status={'Tarea'}
+                    total={total}
+                />
+                {
+                    data.map(( { value, status } ) => (
+            
+                        <SummaryStatusWork 
+                            value={value}
+                            status={status}
+                            total={total}
+                        />
+                    ))
+                }
+            </>
+        )
     }
     
     return (

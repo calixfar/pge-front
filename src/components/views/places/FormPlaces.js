@@ -191,13 +191,23 @@ const FormPlace = ({ destinyForm, history, getPlaces }) => {
                 await axiosClient.post(`/api/v1/place`, place);
                 // setPlace(initialState);
             } else {
+                console.log('update test');
                 await axiosClient.put(`/api/v1/place/${id}`, place);
             }
+
+            const complementText = `${destinyForm === 'register' ? 'creado' : 'actualizado'}`
             Swal.fire({
-                icon: 'success',
-                title: 'Creado exitosamente...',
-                text: `El lugar fue ${destinyForm === 'register' ? 'creado' : 'actualizado'}`
-              });
+            title: `${complementText}!`,
+            text: `El lugar fue ${ complementText } con éxito`,
+            icon: 'success',
+            showCancelButton: false,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si'
+            }).then( async () => {
+                if( complementText === 'actualizado' ) history.push('/lugares');
+                else getPlaces();
+            })
         } catch (error) {
             Swal.fire({
                 icon: 'error',

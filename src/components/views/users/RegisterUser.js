@@ -51,7 +51,8 @@ const RegisterUser = () => {
                 icon: 'error',
                 title: 'Error...',
                 text: 'Por favor completa todos los campos'
-              })
+              });
+              return;
         }
         try {
             await axiosClient.post(`/api/v1/user`, user);

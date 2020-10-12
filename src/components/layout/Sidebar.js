@@ -19,7 +19,7 @@ const SideBar = () => {
     return (
         <div className="sidebar" data-color="" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
             <div className="logo"><Link to="/home" className="simple-text logo-normal">
-               <img className="w-25" src="/arquivos/pge_logo.png"/> 
+               <img className="w-100" src="/arquivos/logo_fqd.png"/> 
         </Link></div>
             <div className="sidebar-wrapper">
                 <ul className="nav">
@@ -31,8 +31,8 @@ const SideBar = () => {
                     </li>
                     <li style={{display: `${usuario.type_user != 'ADMIN' ? 'none' : 'block'}`}} className={`nav-item ${navActive === 'equipos' ? 'background-blue' : ''}`} onClick={ () => changeActive('equipos')  }>
                         <Link className="nav-link" to="/equipos">
-                            <i className="material-icons">content_paste</i>
-                            <p>Equipos</p>
+                            <i className="material-icons">groups</i>
+                            <p>Grupos de trabajo</p>
                         </Link>
                     </li>
                     <li className={`nav-item ${navActive === 'usuarios' ? 'background-blue' : ''}`} onClick={ () => changeActive('usuarios')  }>
@@ -49,19 +49,19 @@ const SideBar = () => {
                     </li>
                     <li className={`nav-item ${navActive === 'lugares' ? 'background-blue' : ''}`} onClick={ () => changeActive('lugares')  }>
                         <Link className="nav-link" to="/lugares">
-                            <i className="material-icons">library_books</i>
+                            <i className="material-icons">location_ons</i>
                             <p>Lugares</p>
                         </Link>
                     </li>
                     <li className={`nav-item ${navActive === 'mapa' ? 'background-blue' : ''}`} onClick={ () => changeActive('mapa')  }>
                         <Link className="nav-link" to="./mapa">
-                            <i className="material-icons">location_ons</i>
+                            <i className="material-icons">map</i>
                             <p>Mapa</p>
                         </Link>
                     </li>
                     <li className={`nav-item ${navActive === 'actividades' ? 'background-blue' : ''}`} onClick={ () => changeActive('actividades')  }>
                         <Link className="nav-link" to="/actividades">
-                            <i className="material-icons">library_books</i>
+                            <i className="material-icons">list</i>
                             <p>Actividades</p>
                         </Link>
                     </li>
@@ -72,6 +72,7 @@ const SideBar = () => {
                         </a>
                     </li> */}
                 </ul>
+                <img className="w-100" src="/arquivos/logo_pgc.png"/> 
             </div>
         </div>
     )

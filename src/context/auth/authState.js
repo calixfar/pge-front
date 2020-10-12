@@ -16,6 +16,21 @@ import {
     HIDE_ALERT
 } from '../../types/alert';
 
+const actionBackgroundImage = (type) => {
+    const wrapper = document.querySelector('#root > .wrapper');
+    switch (type) {
+        case 'add':
+            wrapper.classList.add('background-image');
+            break;
+        case 'remove':
+            wrapper.classList.remove('background-image');
+            break;
+    
+        default:
+            break;
+    }
+}
+
 const AuthState = ({ children }) => {
     const initialState = {
         token: localStorage.getItem('token'),
@@ -80,6 +95,7 @@ const AuthState = ({ children }) => {
                 payload: response.data
             });
             userAuth();
+            actionBackgroundImage('remove');
         } catch (error) {
             console.log(error.response);
             dispatch({

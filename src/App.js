@@ -8,9 +8,19 @@ const token = localStorage.getItem('token');
 if(token) {
   tokenAuth(token);
 }
+// const styleBackgroundLogin = window.location.pathname === '/' ? { 
+//     backgroundImage:  'url(/arquivos/backgroung_login.jpg)',
+//     backgroundSize: '100% 100%',
+//     backgroundRepeat: 'no-repeat',
+//     position: 'relative'
+//   } : {};
+
+
 function App() {
   return (
-    <div className="wrapper ">
+    <div 
+      className={ `wrapper ${window.location.pathname === '/' ? 'background-image' : ''}` }
+    >
       <AuthState>
         {/* <Sidebar/> */}
         <MainPanel/>

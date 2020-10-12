@@ -6,6 +6,12 @@
   height: 40vmin;
   pointer-events: none;
 }
+.background-image {
+  background-image:  url('/arquivos/backgroung_login.jpg');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  position: relative;
+}
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {

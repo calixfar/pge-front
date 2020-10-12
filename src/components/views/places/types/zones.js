@@ -8,8 +8,8 @@ export const zoneValues = [
 ];
 export const zoneItems = [
     {
-        id: 'Sur Occidente',
-        value: 'Sur Occidente',
+        id: 'Sur_Occidente',
+        value: 'Sur_Occidente',
         text: 'Sur Occidente'
     },
     {
@@ -23,8 +23,8 @@ export const zoneItems = [
         text: 'Centro'
     },
     {
-        id: 'Nor Occidente',
-        value: 'Nor Occidente',
+        id: 'Nor_Occidente',
+        value: 'Nor_Occidente',
         text: 'Nor Occidente'
     },
     {
@@ -33,8 +33,8 @@ export const zoneItems = [
         text: 'Oriente'
     },
     {
-        id: 'Nor Oriente',
-        value: 'Nor Oriente',
+        id: 'Nor_Oriente',
+        value: 'Nor_Oriente',
         text: 'Nor Oriente'
     }
 ];

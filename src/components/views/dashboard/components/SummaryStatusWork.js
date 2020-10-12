@@ -2,7 +2,7 @@ import React from 'react';
 
 function SummaryStatusWork({ status, value, total }) {
 
-    const casesStatus = ['Sin_revisar', 'Problema', 'Navegacion', 'Inicio_tarea', 'Culminada', 'Vista'];
+    const casesStatus = ['Sin_revisar', 'Problema', 'Navegacion', 'Inicio_tarea', 'Culminada', 'Vista', 'Tarea'];
     const setColorStatus = (status_work) => {
         switch (status_work) {
             case casesStatus[0]:
@@ -17,6 +17,8 @@ function SummaryStatusWork({ status, value, total }) {
                 return '#53CF07';
             case casesStatus[5]:
                 return '#53CF07';
+            case casesStatus[6]:
+                return '#069b9b';
             default:
                 return '#9507CF';
         }
@@ -35,10 +37,14 @@ function SummaryStatusWork({ status, value, total }) {
                 return 'check_circle_outline';
             case casesStatus[5]:
                 return 'done_all';
+            case casesStatus[6]:
+                return 'list_alt';
             default:
                 return 'store';
         }
     }
+
+    const text = `${value}${status !== 'Tarea' ? `/${total}` : ''}`;
 
     return (
         <div className="col-lg-4 col-md-6 col-sm-6">
@@ -48,7 +54,7 @@ function SummaryStatusWork({ status, value, total }) {
                         <i className="material-icons">{setIconStatus(status)}</i>
                     </div>
                     <p className="card-category">{status.replace('_', ' ')}</p>
-                    <h3 style={{color: '#ccc'}}>{ `${value}/${total}` }</h3>
+                    <h3 style={{color: '#ccc'}}>{ text }</h3>
                 </div>
                 {/* <div className="card-footer">
                     <div className="stats">

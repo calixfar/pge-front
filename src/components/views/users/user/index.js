@@ -45,11 +45,44 @@ const User = ({ history }) => {
         getTeams();
         userAuth();
     }, []);
+
+    const putUser = async () => {
+        try {
+            await axiosClient.put(`/api/v1/user/${id}`, user);
+            
+            Swal.fire({
+                title: 'Actualizado!',
+                text: `Se actualizo con éxito`,
+                icon: 'success',
+                showCancelButton: false,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si'
+              }).then( async () => {
+                history.push('/usuarios');
+              })
+        } catch (error) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error...',
+                text: error.response.data.msg
+              });
+        }
+    }
     const handleBtnUpdate = async (e) => {
         e.preventDefault();
-        const updateUser = await axiosClient.put(`/api/v1/user/${id}`, user);
-        history.push('/usuarios');
-        console.log(updateUser);
+        const { name, last_name, phone, type_user, password, email, team_id } = user;
+        if(name === "" || last_name === "" ||  phone === "" ||  
+        type_user === "" ||  password === "" ||  email === "" ||
+        team_id === "") {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error...',
+                text: 'Por favor completa todos los campos'
+              });
+              return;
+        }
+        putUser();
     }
     const changeShowPassword = () => {
         setShowPassword(!showPassword);
