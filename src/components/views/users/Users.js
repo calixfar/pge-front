@@ -66,7 +66,7 @@ const Users = () => {
     return (
         <div className="content">
             <div className="container-fluid">
-                <RegisterUser/>
+                <RegisterUser getUsers={getUsers}/>
                 <div className="row">
                     <div className="col-md-12">
                         <div className="card">

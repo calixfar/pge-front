@@ -3,7 +3,7 @@ import axiosClient  from '../../../config/axios';
 import AuthContext from '../../../context/auth/authContext';
 import Swal from 'sweetalert2';
 
-const RegisterUser = () => {
+const RegisterUser = ({ getUsers }) => {
     const authContext = useContext(AuthContext);
     const { userAuth, usuario } = authContext;
     const initialState = {
@@ -62,6 +62,7 @@ const RegisterUser = () => {
                 text: 'El usuario fue creado'
               });
               setUser(initialState);
+              getUsers();
         } catch (error) {
             Swal.fire({
                 icon: 'error',

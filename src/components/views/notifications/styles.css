@@ -1,0 +1,19 @@
+.item-notification {
+    background-color: #fff;
+    width: 100%;
+    padding: 20px;
+    border-radius: 10px;
+    -webkit-box-shadow: 2px -3px 49px -20px rgba(186,180,186,1);
+    -moz-box-shadow: 2px -3px 49px -20px rgba(186,180,186,1);
+    box-shadow: 2px -3px 49px -20px rgba(186,180,186,1);
+    margin-bottom: 20px;
+}
+.notification-title {
+    font-size: 18px;
+    color: #1b458f;
+    font-weight: bold;
+}
+.notification-message, .notification-date {
+    font-size: 16px;
+    color: #000;
+}
