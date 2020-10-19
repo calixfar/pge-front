@@ -1,5 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import AuthContext from '../../../../context/auth/authContext' ;
+import { actionBackgroundImage } from '../../../../utils/utils';
+import { updateLocations } from '../../../../utils/sockets';
 
 const Header = () => {
     const authContext = useContext(AuthContext);
@@ -7,9 +9,55 @@ const Header = () => {
 
     const [showSubMenu, setShowSubMenu] = useState(false);
     const changeSubMenu = () => setShowSubMenu(!showSubMenu);
+    const [ socketSubscribeEmit, setSocketSubscribeEmit ] = useState(false);
+    const [ coords, setCoords ] = useState(null);
+
+    const getCoords = () => {
+        const succes = (res) => {
+            console.log('coords', res);
+            setCoords(res.coords)
+        }
+        const error = (err) => {
+            console.log(err);
+        }
+    
+        const options = {
+            enableHighAccuracy: false,
+            timeout: 10000,
+            maximumAge: 0 
+        }
+        navigator.geolocation.getCurrentPosition(succes, error, options)
+    }
+
     useEffect(() => {
         userAuth();
+        
     }, []);
+
+    useEffect(() => {
+        console.log('sockerSubscribeEmit', socketSubscribeEmit);
+        if( usuario && !coords  ) {
+            actionBackgroundImage('remove');
+            getCoords();
+        }
+        
+    }, [usuario]);
+
+    useEffect(() => {
+        console.log(coords);
+
+        if( coords ) {
+            const { latitude, longitude } = coords;
+            console.log('latitude', latitude);
+            updateLocations({
+                userId: usuario._id,
+                teamId: usuario.team_id,
+                coords: {
+                    latitude, longitude
+                }
+            })
+        }
+    }, [coords]);
     if(usuario === null) {
         return(
             <div></div>

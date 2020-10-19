@@ -1,0 +1,43 @@
+ul {
+    padding: 0;
+    margin: 0;
+}
+li {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.contentDropDown {
+    display: flex;
+    align-items: center;
+}
+.btnItem {
+    background-color: transparent;
+    border: none;
+    width: 150px;
+    text-align: start;
+    outline: 0;
+}
+.btnItemDropdown {
+    font-weight: bold;
+}
+.btnItemSubDropdown {
+    padding: 5px 0;
+    cursor: pointer;
+}
+.stateEnable {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    border: solid 1px #ccc;
+    margin-right: 10px;
+}
+.stateEnableOn {
+   background-color: green; 
+}
+.stateEnableOff {
+background-color:yellow;
+}
+.stateEnableUnknow {
+background-color: red;
+}

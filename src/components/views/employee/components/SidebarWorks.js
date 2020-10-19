@@ -2,17 +2,26 @@ import React, { useEffect, useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import AuthContext from '../../../../context/auth/authContext' ;
 import WorkContext from '../context/context';
-import SidebarWork from './Work';
-const SideBar = () => {
+import SideBar from './Sidebar';
+import Work from './Work/Work';
+import '../styles.css';
+const SideBarWork = () => {
     const authContext = useContext(AuthContext);
     const workContext = useContext(WorkContext);
     const { userAuth, usuario } = authContext;
     const { works, getWorks } = workContext;
-    console.log(works);
 
     const [dataWork, setDataWork] = useState(null);
+    const [ showSideBar, setShowSideBar ] = useState(false);
 
-    const changeDataWork = (value) => setDataWork(value);
+    const changeDataWork = (value) => {
+        setDataWork(value);
+        changeShowSideBar(true);
+    }
+
+    const changeShowSideBar = (value) => {
+        setShowSideBar(value);
+    }
 
     useEffect(() => {
         userAuth();
@@ -42,23 +51,26 @@ const SideBar = () => {
                                     onClick={() => changeDataWork(work)}
                                 >
                                     <div className="card-header card-header-success">
-                                        <h4 style={{textAlign: 'center'}} className="card-title">{work.type}</h4>
+                                        <h4 style={{textAlign: 'center'}} className="card-title">{work.type.type}</h4>
                                     </div>
-                                    <di className="card-body">
+                                    <div className="card-body">
                                         <p>Lugar: {work.place.name}</p>
                                         <p>ID estación: {work.id_base_station}</p>
                                         <p>Prioridad: {work.priority}</p>
-                                    </di>
+                                        <p>Estado tarea: {work.status_work.replace(/_/g, ' ')}</p>
+                                    </div>
                                 </div>
                             ))
                         }
-                        <SidebarWork 
-                            data={dataWork}
-                            changeDataWork={changeDataWork}
+                        <SideBar
+                            show={ showSideBar }
+                            hideSideBar={ () => changeShowSideBar(false) }
+                            // content = {  <p>test</p> }
+                            content = {  <Work work={dataWork}/> }
                         />
                     </div> :
                     <div>
-                        <p>No tienes tareas asignadas</p>
+                        <p className="text-blank-works" >No tienes tareas asignadas</p>
                     </div> 
                 }
             </div>
@@ -67,4 +79,4 @@ const SideBar = () => {
 
 }
 
-export default SideBar;
+export default SideBarWork;

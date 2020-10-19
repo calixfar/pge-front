@@ -14,6 +14,7 @@ import Works from '../views/works/Works';
 import Work from '../views/works/Work';
 import WorkState from '../views/works/context/workState';
 import Map from '../views/maps';
+import MapState from '../views/maps/context/state';
 import Activities from '../views/activities';
 import Dashboard from '../views/dashboard';
 import PrivateRoute from '../privateRoute';
@@ -57,7 +58,9 @@ const MainPanel = () => {
                                             <PrivateRoute path="/equipo/:id" component={TeamUpdate}/>
                                             <PrivateRoute path="/lugares" component={Places}/>
                                             <PrivateRoute path="/lugar/:id" component={Place}/>
-                                            <PrivateRoute path="/mapa" component={Map}/>
+                                            <MapState>
+                                                <PrivateRoute path="/mapa" component={Map}/>
+                                            </MapState>
                                             <PrivateRoute path="/actividades" component={Activities}/>
                                             <WorkState>
                                                 <PrivateRoute path="/tareas" component={Works}/>

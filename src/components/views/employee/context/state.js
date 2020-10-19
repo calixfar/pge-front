@@ -2,7 +2,9 @@ import React, { useReducer, useContext } from 'react';
 import {
     GET_WORKS,
     UPDATE_WORK,
-    CHANGE_STATUS_WORK
+    CHANGE_STATUS_WORK,
+    SELECTED_WORK,
+    RESET_SELECTED_WORK
 } from './types';
 import Context from './context';
 import reducer from './reducer';
@@ -18,7 +20,8 @@ export default  ({ children }) => {
     const initialState = {
         works: null,
         date: new Date(),
-        loading: true
+        loading: true,
+        selected_work: null
     }
 
     const [state, dispatch] = useReducer(reducer, initialState);
@@ -36,13 +39,28 @@ export default  ({ children }) => {
         }
     }
 
+    const selectWork = (work) => {
+        dispatch({
+            type: SELECTED_WORK,
+            payload: work
+        })
+    };
+    const resetSelectedWork = () => {
+        dispatch({
+            type: RESET_SELECTED_WORK
+        })
+    };
+
     return (
         <Context.Provider
             value={{
                 works: state.works,
                 date: state.date,
                 loading: state.loading,
-                getWorks
+                selected_work: state.selected_work,
+                getWorks,
+                selectWork,
+                resetSelectedWork
             }}
         >
             {children }

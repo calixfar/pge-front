@@ -1,5 +1,5 @@
 import React from 'react';
-import Sidebar from './components/Sidebar';
+import SidebarWorks from './components/SidebarWorks';
 import Header from './components/Header';
 import WorkState from './context/state';
 export default () => {
@@ -7,7 +7,7 @@ export default () => {
     return (
         <div className="main-panel">
             <WorkState>
-                <Sidebar/>
+                <SidebarWorks/>
                 <Header/>
             </WorkState>
         </div>

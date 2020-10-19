@@ -8,13 +8,13 @@ const Works = ({works}) => {
                 <div className="card">
                     <div className="card-header background-blue d-flex">
                         <div className="con-md-12">
-                            <h4 className="car-title">Lista de tareas</h4>
+                            <h4 className="card-title">Lista de tareas</h4>
                         </div>
                     </div>
                     <div className="car-body">
                         <div className="table-responsive">
                             <table className="table">
-                                <thead className="text-primary">
+                                <thead>
                                     <tr>
                                         <th>#</th>
                                         <th>ID Estación Base</th>

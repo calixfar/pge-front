@@ -1,3 +1,5 @@
 export const GET_WORKS = 'GET_WORKS';
 export const UPDATE_WORK = 'UPDATE_WORK';
 export const CHANGE_STATUS_WORK = 'CHANGE_STATUS_WORK';
+export const SELECTED_WORK = 'SELECTED_WORK';
+export const RESET_SELECTED_WORK = 'RESET_SELECTED_WORK';
