@@ -19,7 +19,7 @@ const SideBar = () => {
     return (
         <div className="sidebar" data-color="" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
             <div className="logo"><Link to="/home" className="simple-text logo-normal">
-               <img className="w-100" src="/arquivos/logo_fqd.png"/> 
+               <img className="w-100" src="/arquivos/logo_fic.png"/> 
         </Link></div>
             <div className="sidebar-wrapper">
                 <ul className="nav">
