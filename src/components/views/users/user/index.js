@@ -218,7 +218,7 @@ const User = ({ history }) => {
                         </div>
                     </div>
                 </div>
-                { user.type_user === 'EMPLOYEE' && <Works works={ user.works }/>} 
+                { user.type_user === 'EMPLOYEE' && <Works userId={ id }/>} 
             </div>
         </div>
 

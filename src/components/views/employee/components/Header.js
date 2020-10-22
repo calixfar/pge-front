@@ -22,7 +22,7 @@ const Header = () => {
         }
     
         const options = {
-            enableHighAccuracy: false,
+            enableHighAccuracy: true,
             timeout: 10000,
             maximumAge: 0 
         }

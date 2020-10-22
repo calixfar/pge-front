@@ -16,9 +16,9 @@ const Header = () => {
     }, []);
 
     useEffect(() => {
-        if( usuario && !sockerSubscribeEmit ) {
-            console.log('enter usuario');
-            actionBackgroundImage();
+        if( usuario ) {
+            actionBackgroundImage('remove');
+            if( !sockerSubscribeEmit )
             subscribeUser(usuario, () => setSockerSubscribeEmit(true) );
         }
     }, [usuario]);

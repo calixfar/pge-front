@@ -9,6 +9,7 @@ export const mapUserCoordWithMembersTeam = (teams, usersCoords) => {
         3 =>  DATA FROM BD
     */ 
 
+    // CHANGE
     teams.forEach( (team) => {
           team.members.forEach(({ user }) => {
             const { _id, name, last_name, phone, latitude, longitude } = user;

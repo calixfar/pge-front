@@ -178,7 +178,7 @@ const FormPlace = ({ destinyForm, history, getPlaces }) => {
         if(name === "" || code_site === "" ||  address === "" ||  
         city === "" ||  structure === "" ||
         deparment === "" || owner === "" || latitude === "" ||
-        longitude ==="", type_station === "") {
+        longitude ==="" || type_station === "") {
             Swal.fire({
                 icon: 'error',
                 title: 'Error...',
