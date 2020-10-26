@@ -7,22 +7,29 @@ li {
     padding: 0;
     list-style: none;
 }
+.containerFilters {
+    padding-top: 20px;
+    height: 100%;
+}
 .contentDropDown {
     display: flex;
     align-items: center;
 }
+.itemFilterTeam {
+    height: 100%;
+}
 .btnItem {
     background-color: transparent;
     border: none;
-    width: 150px;
+    width: calc(100% - 15px);
     text-align: start;
     outline: 0;
+    margin-bottom: 5px;
 }
 .btnItemDropdown {
     font-weight: bold;
 }
 .btnItemSubDropdown {
-    padding: 5px 0;
     cursor: pointer;
 }
 .stateEnable {
@@ -40,4 +47,41 @@ background-color:yellow;
 }
 .stateEnableUnknow {
 background-color: red;
+}
+.title-filter {
+    font-size: 22px;
+    color: #000;
+    font-weight: bold;
+    margin-top: 15px;
+    text-transform: uppercase;
+    background: #F1F1F1;
+    padding: 0 8px;
+    border-radius: 21px;
+    text-align: center;
+}
+.customDropDown {
+    padding: 0 10px 30px 10px;
+    overflow-y: scroll;
+}
+.customDropDown::-webkit-scrollbar {
+    right: 24px;
+    height: 100px;
+    width: 2px;
+    background-color: #f3f3f3;
+}
+.customDropDown::-webkit-scrollbar-thumb {
+    background: #adafb2;
+}
+.custom-form-check label {
+    display: flex;
+    font-size: 18px;
+    color: #000;
+    font-weight: bold;
+    align-items: center;
+}
+.custom-form-check .form-check-sign {
+    top: 3px !important;
+}
+.textNoMembers {
+    padding-left: 5px;
 }

@@ -10,12 +10,15 @@ import { stateByEnable } from '../utils';
 const Map = ({
     updateMapRef,
     teamsLocations,
+    places,
     userSelected,
     updateUserSelected,
     showInfoWindow,
-    updateShowInfoWindow
+    updateShowInfoWindow,
+    onZoomChange,
+    sizeMarkerPlace,
+    showPlaces
 }) => {
-
     const mapContainerStyle = {
         width: '100%',
         height: '100%'
@@ -30,9 +33,13 @@ const Map = ({
         zoomControl: true
     }
 
-    const onClickMarker = ( member ) => {
+    const onClickMarkerMember = ( member ) => {
         updateUserSelected(member);
-        updateShowInfoWindow(true);
+        updateShowInfoWindow('member', true);
+    }
+
+    const closeInfoWindow = (type) => {
+        updateShowInfoWindow(type, false)
     }
     const resLoadMap = useLoadScript({
         googleMapsApiKey: 'AIzaSyCJZb0uQ_fXU53JfJQxYYCgKUJeSZSGTTQ'
@@ -44,33 +51,99 @@ const Map = ({
     // 3.9301794,-77.2987238,6z/data=!4m5!3m4!1s0x8e15a43aae1594a3:0x9a0d9a04eff2a340!8m2!3d4.570868!4d-74.297333?hl=es
     // https://www.google.com/maps/place/Colombia/@5.0035534,-76.5296808,6z/data=!4m5!3m4!1s0x8e15a43aae1594a3:0x9a0d9a04eff2a340!8m2!3d4.570868!4d-74.297333?hl=es
 
-    const renderedMarkets = () => {
+    const RenderMarker = ( { id, position, icon, onClick, isMap, selected } ) => {
+        const optionsIcon = {
+            url: icon
+        }
+        optionsIcon.scaledSize = {width: 30, height: 40};                               
+        optionsIcon.origin = {x: 0, y: 0};                           
+        optionsIcon.anchor = {x: 25, y: 25}
+        if( isMap ) {
+            optionsIcon.scaledSize = sizeMarkerPlace;                               
+            optionsIcon.origin = {x: 0, y: 0};                           
+            optionsIcon.anchor = {x: 5, y: 5}
+        }
 
+        if( selected ) {
+            optionsIcon.scaledSize = {
+                width: 40, height: 50
+            }
+        };
+
+        return (
+            <Marker
+                key={`${id}${new Date().getTime()}`}
+                position={position}
+                icon={optionsIcon}
+                onClick={ onClick }
+            />
+        )
+    }
+
+    const getOptionsIcon = ( urlIcon, isMap, selected ) => {
+        const options = {};
+        const optionsIcon = {
+            url: urlIcon
+        }
+        optionsIcon.scaledSize = {width: 30, height: 40};                               
+        optionsIcon.origin = {x: 0, y: 0};                           
+        optionsIcon.anchor = {x: 25, y: 25}
+        if( isMap ) {
+            optionsIcon.scaledSize = sizeMarkerPlace;                               
+            optionsIcon.origin = {x: 0, y: 0};                           
+            optionsIcon.anchor = {x: 5, y: 5}
+        }
+
+        if( selected ) {
+            optionsIcon.scaledSize = {
+                width: 40, height: 50
+            }
+        };
+        return { ...optionsIcon }
+    };
+
+    const renderedMarketsPlaces = ()  => (
+        <>
+            {
+                places.map((place) => {
+                    const { _id, latitude, longitude } = place;
+                    if( !latitude && !longitude ) return;
+                    return (
+                        <Marker
+                            key={ _id }
+                            position={{
+                                lat: parseFloat(latitude),
+                                lng: parseFloat(longitude)
+                            }}
+                            icon={getOptionsIcon(`/arquivos/marketUnknow.png`, true, false)}
+                            onClick={ () => {} }
+                        />
+                    )
+                })
+            }
+        </>
+    )
+
+
+
+    const renderedMarketsMembers = () => {
+        console.log('render');
         const teamsLocationsValues = Object.values(teamsLocations);
         return (
             <>
                 {
                     teamsLocationsValues.map(( member ) => {
                         const { id, coords, show } = member;
-                        if( !coords || !show ) return;
+                        if( id === '5f851638a9e9c314c1887192' ) console.log(member);
+                        if( !coords || !show ) return null;
+                        if( id === '5f851638a9e9c314c1887192' ) console.log('paso');
                         const defaultIcon = `/arquivos/market${ userSelected && userSelected.id === id ? 'Selected' : 'Default' }.png`;
-                        const optionsIcon = {
-                            url: defaultIcon,
-                            scaledSize: {width: 40, height: 50},                               
-                            origin: {x: 0, y: 0},                               
-                            anchor: {x: 25, y: 25}
-                        }
-                        if( userSelected && userSelected.id === id ) {
-                            optionsIcon.scaledSize = {
-                                width: 50, height: 60
-                            }
-                        };
                         return (
                             <Marker
-                                key={id}
+                                key={ id }
                                 position={{lat: coords.latitude, lng: coords.longitude}}
-                                icon={optionsIcon}
-                                onClick={ () => onClickMarker(member) }
+                                icon={getOptionsIcon(defaultIcon, false, userSelected && userSelected.id === id)}
+                                onClick={ () => onClickMarkerMember(member) }
                             />
                         )
                     })
@@ -87,13 +160,16 @@ const Map = ({
                     lat: latitude,
                     lng: longitude
                 }}
-                onCloseClick={ () => updateShowInfoWindow(false) }
+                onCloseClick={ () => closeInfoWindow('member') }
             >
                 <div>
                     <h2 style={{textAlign: 'center', fontSize: '16px', fontWeight: 'bold'}}>{name}</h2>
                     <p style={{margin: '10px 0 0 0'}}>Equipo: { teamName }</p>
                     <p style={{margin: '10px 0 0 0'}}>Teléfono: { phone }</p>
                     <p style={{margin: '10px 0 0 0'}}>Estado: { stateByEnable(enable, 'map') }</p>
+                    <p style={{margin: '10px 0 0 0'}}>Latitud: { latitude }</p>
+                    <p style={{margin: '10px 0 0 0'}}>Longitud: { longitude }</p>
+                    
                 </div>
             </InfoWindow>
         )
@@ -105,13 +181,19 @@ const Map = ({
                 onLoad={( map ) => {
                     updateMapRef(map)
                 }}
+                onZoomChanged={ onZoomChange }
                 mapContainerStyle={mapContainerStyle}
                 zoom={6}
                 center={initialCenter}
                 options={options}
             >
-                { renderedMarkets() }
-                { userSelected && showInfoWindow && renderedInfoWindow() }
+                { teamsLocations !== null && 
+                    <> 
+                    { renderedMarketsMembers() }
+                    { showPlaces && places && renderedMarketsPlaces() }
+                    { userSelected && showInfoWindow.member && renderedInfoWindow() }
+                    </> 
+                }
             </GoogleMap>
         </div>
     )

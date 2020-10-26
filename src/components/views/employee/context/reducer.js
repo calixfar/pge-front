@@ -2,8 +2,9 @@ import {
     GET_WORKS,
     UPDATE_WORK,
     CHANGE_STATUS_WORK,
-    SELECTED_WORK,
-    RESET_SELECTED_WORK
+    INITIALIZED_WORK,
+    RESET_SELECTED_WORK,
+    GET_WORK_ACTIVITIES
 } from './types';
 
 export default (state, action) => {
@@ -14,15 +15,20 @@ export default (state, action) => {
                 works: action.payload,
                 loading: false
             }
-        case SELECTED_WORK :
+        case INITIALIZED_WORK :
             return {
                 ...state,
-                selected_work: action.payload
+                initialized_work: action.payload
             }
         case RESET_SELECTED_WORK :
             return {
                 ...state,
-                selected_work: null
+                initialized_work: null
+            }
+        case GET_WORK_ACTIVITIES :
+            return {
+                ...state,
+                work_activities: action.payload
             }
         default :
             return state;

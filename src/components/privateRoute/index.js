@@ -5,11 +5,8 @@ import AuthContext from '../../context/auth/authContext';
 const PrivateRoute = ({component: Component, ...props}) => {
     const authContext = useContext(AuthContext);
 
-    const { auth, userAuth, loading } = authContext;
+    const { auth, loading } = authContext;
 
-    useEffect(() => {
-        userAuth();
-    }, [])
     return(
         <Route
             {...props}

@@ -5,7 +5,7 @@ import Swal from 'sweetalert2';
 
 const RegisterUser = ({ getUsers }) => {
     const authContext = useContext(AuthContext);
-    const { userAuth, usuario } = authContext;
+    const { usuario } = authContext;
     const initialState = {
         name: '',
         last_name: '',
@@ -39,7 +39,6 @@ const RegisterUser = ({ getUsers }) => {
         }
     }
     useEffect(() => {
-        userAuth();
         getTeams();
     }, []);
     const handleBtnCreate = async (e) => {

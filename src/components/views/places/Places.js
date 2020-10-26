@@ -8,7 +8,7 @@ import Search from '../../general/Search';
 
 const Places = () => {
     const authContext = useContext(AuthContext);
-    const {userAuth, usuario} = authContext;
+    const {usuario} = authContext;
 
     let type_user;
     if( usuario !== null ) {
@@ -32,8 +32,6 @@ const Places = () => {
 
     useEffect( () => {
         getPlaces();
-        console.log(places)
-        userAuth();
     }, []);
     const handleDeletePlace = async (id) => {
         Swal.fire({

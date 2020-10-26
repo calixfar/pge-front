@@ -3,15 +3,16 @@ import {
     GET_WORKS,
     UPDATE_WORK,
     CHANGE_STATUS_WORK,
-    SELECTED_WORK,
-    RESET_SELECTED_WORK
+    INITIALIZED_WORK,
+    RESET_SELECTED_WORK,
+    GET_WORK_ACTIVITIES
 } from './types';
 import Context from './context';
 import reducer from './reducer';
 import AuthContext from '../../../../context/auth/authContext';
 import axiosClient from '../../../../config/axios';
 
-export default  ({ children }) => {
+const EmployeeState = ({ children }) => {
 
     const authContext = useContext(AuthContext);
 
@@ -21,7 +22,8 @@ export default  ({ children }) => {
         works: null,
         date: new Date(),
         loading: true,
-        selected_work: null
+        initialized_work: null,
+        work_activities: null
     }
 
     const [state, dispatch] = useReducer(reducer, initialState);
@@ -41,7 +43,7 @@ export default  ({ children }) => {
 
     const selectWork = (work) => {
         dispatch({
-            type: SELECTED_WORK,
+            type: INITIALIZED_WORK,
             payload: work
         })
     };
@@ -51,19 +53,37 @@ export default  ({ children }) => {
         })
     };
 
+    const getActivitiesByWork = async (workId) => {
+        try {
+            console.log('entro work search', workId);
+            const res = await axiosClient.get(`/api/v1/work-activity/${workId}`);
+            console.log(res);
+            dispatch({
+                type: GET_WORK_ACTIVITIES,
+                payload: res.data.activities
+            })
+
+        } catch (error) {
+            console.log(error.response);
+        }
+    }
+
     return (
         <Context.Provider
             value={{
                 works: state.works,
                 date: state.date,
                 loading: state.loading,
-                selected_work: state.selected_work,
+                initialized_work: state.initialized_work,
+                work_activities: state.work_activities,
                 getWorks,
                 selectWork,
-                resetSelectedWork
+                resetSelectedWork,
+                getActivitiesByWork
             }}
         >
             {children }
         </Context.Provider>
     )
 }
+export default EmployeeState;

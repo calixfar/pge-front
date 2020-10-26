@@ -6,7 +6,6 @@ import { withRouter } from 'react-router-dom';
 
 const FormTeam = ({destinyForm, history, getFieldManager, getTeams, dataTeam}) => {
     const authContext = useContext(AuthContext);
-    const { userAuth } = authContext;
     const initialState = {
         name: '',
         field_manager: null
@@ -73,8 +72,6 @@ const FormTeam = ({destinyForm, history, getFieldManager, getTeams, dataTeam}) =
         }
     }
     useEffect(() => {
-        console.log(history, 'form');
-        userAuth();
         if (destinyForm === 'register') {
             setTeam(initialState);
         } else {

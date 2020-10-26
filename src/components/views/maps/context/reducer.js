@@ -11,10 +11,14 @@ import {
 export default (state, action) => {
     switch (action.type) {
         case GET_TEAMS:
-        case GET_PLACES:
             return {
                 ...state,
                 teams: action.payload
+            }    
+        case GET_PLACES:
+            return {
+                ...state,
+                places: action.payload
             }    
         case UPDATE_SELECTED_MEMBERS:
             return {

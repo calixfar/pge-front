@@ -2,35 +2,38 @@ import React, { useContext, useEffect, useState } from 'react';
 import AuthContext from '../../../../context/auth/authContext' ;
 import { actionBackgroundImage } from '../../../../utils/utils';
 import { updateLocations } from '../../../../utils/sockets';
-
+import { getCoords } from '../../../../utils/location';
 const Header = () => {
     const authContext = useContext(AuthContext);
-    const { userAuth, usuario, cerrarSesion } = authContext;
+    const { userAuth, auth, usuario, cerrarSesion } = authContext;
 
     const [showSubMenu, setShowSubMenu] = useState(false);
     const changeSubMenu = () => setShowSubMenu(!showSubMenu);
     const [ socketSubscribeEmit, setSocketSubscribeEmit ] = useState(false);
     const [ coords, setCoords ] = useState(null);
 
-    const getCoords = () => {
-        const succes = (res) => {
-            console.log('coords', res);
-            setCoords(res.coords)
-        }
-        const error = (err) => {
-            console.log(err);
-        }
+    // const getCoords = () => {
+    //     const succes = (res) => {
+    //         console.log('coords', res);
+    //         setCoords(res.coords)
+    //     }
+    //     const error = (err) => {
+    //         console.log(err);
+    //     }
     
-        const options = {
-            enableHighAccuracy: true,
-            timeout: 10000,
-            maximumAge: 0 
-        }
-        navigator.geolocation.getCurrentPosition(succes, error, options)
-    }
+    //     const options = {
+    //         enableHighAccuracy: true,
+    //         timeout: 10000,
+    //         maximumAge: 0 
+    //     }
+    //     navigator.geolocation.getCurrentPosition(succes, error, options);
+    // }
 
     useEffect(() => {
-        userAuth();
+        if( auth === null ) {
+            console.log('enter ');
+            userAuth();
+        }
         
     }, []);
 
@@ -38,7 +41,7 @@ const Header = () => {
         console.log('sockerSubscribeEmit', socketSubscribeEmit);
         if( usuario && !coords  ) {
             actionBackgroundImage('remove');
-            getCoords();
+            getCoords((value) => setCoords(value));
         }
         
     }, [usuario]);
@@ -67,7 +70,7 @@ const Header = () => {
         <nav className="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
             <div className="container-fluid">
                 <div className="navbar-wrapper">
-                    <a className="navbar-brand" href="javascript:;">Dashboard</a>
+    <a className="navbar-brand" href="javascript:;">{ usuario.name }</a>
                 </div>
                 <button className="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="sr-only">Toggle navigation</span>

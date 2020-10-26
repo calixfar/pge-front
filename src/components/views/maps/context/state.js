@@ -17,6 +17,7 @@ const MapState = ({ children }) => {
 
     const initialState = {
         teams: null,
+        places: null,
         selectedsMembersTeam: [],
         geoLocations: null
     }
@@ -97,6 +98,7 @@ const MapState = ({ children }) => {
         <Context.Provider
             value={{
                 teams: state.teams,
+                places: state.places,
                 selectedsMembersTeam: state.selectedsMembersTeam,
                 geoLocations: state.geoLocations,
                 getTeams,

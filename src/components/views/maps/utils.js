@@ -1,3 +1,5 @@
+import { ENABLE } from '../../../types/sockets';
+
 export const mapUserCoordWithMembersTeam = (teams, usersCoords) => {
     const temp = {};
 
@@ -13,8 +15,9 @@ export const mapUserCoordWithMembersTeam = (teams, usersCoords) => {
     teams.forEach( (team) => {
           team.members.forEach(({ user }) => {
             const { _id, name, last_name, phone, latitude, longitude } = user;
-            const enable = usersCoords[_id] ? 2 : latitude !== '' && longitude !== '' ? 3 : 1,
-            coords = enable === 2 ? usersCoords[_id].coords : enable === 3 ? {
+            const isCoordsBd = latitude !== '' && longitude !== '';
+            const enable = usersCoords[_id] ? usersCoords[_id].enable : isCoordsBd ? ENABLE.OFF : ENABLE.UNKNOWN,
+            coords = usersCoords[_id] ? usersCoords[_id].coords : isCoordsBd ? {
                 latitude: parseFloat(latitude),
                 longitude: parseFloat(longitude)
             } : null
@@ -37,10 +40,10 @@ export const stateByEnable = (enable, destiny) => {
     let value = '';
     const isDestinyMap = destiny === 'map' ? true : false;
     switch (enable) {
-        case 2:
+        case ENABLE.ON:
             value = isDestinyMap ?  'ON' : 'stateEnableOn'
             break;
-        case 3:
+        case ENABLE.OFF:
             value = isDestinyMap ? 'OFF' : 'stateEnableOff'
             break;
         default:

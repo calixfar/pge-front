@@ -20,3 +20,77 @@
     color: #ffffff;
     border: solid 1px #ccc;
 }
+.itemActivity {
+    margin-bottom: 25px;
+    color: #000;
+}
+.containerSendWork {
+    margin-top: 20px;
+}
+.containerSendWorkTitle {
+    text-align: center;
+    color: #000;
+    font-size: 22px;
+    font-weight: bold;
+    padding: 7px 0;
+    background-color: #F1F1F1;
+}
+.contentSendWork {
+    padding: 0 20px;
+    margin-top: 20px;
+}
+.contentActivities {
+    overflow-y: scroll;
+    max-height: 1000px;
+    padding: 5px;
+}
+.contentActivities::-webkit-scrollbar {
+    right: 24px;
+    height: 100px;
+    width: 2px;
+    background-color: #f3f3f3;
+}
+.contentActivities::-webkit-scrollbar-thumb {
+    background: #adafb2;
+}
+.containerSendWork label {
+    font-size: 16px;
+}
+.btnSendWork {
+    width: 110px;
+}
+.containerReportProblem {
+    padding: 0 15px;
+    margin-top: 30px;
+}
+.containerReportProblemTitle {
+    text-align: center;
+    font-size: 22px;
+    margin-bottom: 20px;
+}
+.otherReason {
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.2s;
+    margin-top: 0;
+}
+.otherReason .bmd-label-floating {
+    top: 30px !important;
+}
+.showOtherReason {
+    max-height: 200px;
+    margin-top: 20px;
+}
+.showOtherReason .bmd-label-floating {
+    top: 0px !important;
+}
+.btnReportProblem {
+    display: block;
+    margin: 20px auto 0 auto;
+    padding: 10px;
+    color: #fff;
+    font-weight: bold;
+    font-size: 18px;
+    width: 80%;
+    border-radius: 20px;
+}

@@ -4,10 +4,7 @@ import AuthContext from '../../context/auth/authContext';
 const Footer = () => {
 
     const authContext = useContext(AuthContext);
-    const { userAuth, usuario } = authContext;
-    useEffect(() => {
-        userAuth();
-    }, []);
+    const {  usuario } = authContext;
     if(usuario === null) {
         return(
             <div></div>

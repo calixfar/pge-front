@@ -8,7 +8,6 @@ import { zoneItems } from './types/zones';
 
 const FormPlace = ({ destinyForm, history, getPlaces }) => {
     const authContext = useContext(AuthContext);
-    const { userAuth } = authContext;
     const [id, setId] = useState('');
 
     const initialState = {
@@ -163,7 +162,6 @@ const FormPlace = ({ destinyForm, history, getPlaces }) => {
     }
 
     useEffect(() => {
-        userAuth();
         const { pathname } = history.location;
         const idUrl = pathname.substring(pathname.lastIndexOf('lugar/') + 6, pathname.length);
         setId(idUrl);

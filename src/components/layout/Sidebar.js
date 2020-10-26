@@ -3,13 +3,10 @@ import AuthContext from '../../context/auth/authContext';
 import { Link } from 'react-router-dom';
 const SideBar = () => {
     const authContext = useContext(AuthContext);
-    const { userAuth, usuario } = authContext;
+    const { usuario } = authContext;
     const [navActive, setNavActive] = useState('home');
 
     const changeActive = (navItem) => setNavActive(navItem);
-    useEffect(() => {
-        userAuth();
-    }, []);
     if(usuario === null) {
         return(
             <div></div>

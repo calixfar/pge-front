@@ -5,14 +5,17 @@ import { actionBackgroundImage } from '../../utils/utils';
 import { subscribeUser } from '../../utils/sockets';
 const Header = () => {
     const authContext = useContext(AuthContext);
-    const { userAuth, usuario, cerrarSesion } = authContext;
+    const { userAuth, auth, usuario, cerrarSesion } = authContext;
 
     const [showSubMenu, setShowSubMenu] = useState(false);
     const [ sockerSubscribeEmit, setSockerSubscribeEmit ] = useState(false);
     
     const changeSubMenu = () => setShowSubMenu(!showSubMenu);
     useEffect(() => {
-        userAuth();
+        // if( auth === null ) {
+        //     console.log('enter ');
+        //     userAuth();
+        // }
     }, []);
 
     useEffect(() => {

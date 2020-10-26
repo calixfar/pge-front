@@ -1,1 +1,1 @@
-export {default} from './teams';
+export {default} from './filter';
