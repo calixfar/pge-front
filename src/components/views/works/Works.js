@@ -50,74 +50,80 @@ const Works = () => {
                                 </div>
                             </div>
                             <div className="card-body">
-                                <div className="table-responsive">
-                                    <table className="table">
-                                        <thead className="">
-                                            <tr>
-                                                <th>
-                                                    #
-                                                </th>
-                                                <th>
-                                                    Responsable
-                                                </th>
-                                                <th>
-                                                    Equipo
-                                                </th>
-                                                <th>
-                                                    Nombre Sitio
-                                                </th>
-                                                <th>
-                                                    Fecha Ejecución
-                                                </th>
-                                                <th>
-                                                    Estado
-                                                </th>
-                                                <th>
-                                                    Opciones
-                                                </th>
-                                            </tr></thead>
-                                        <tbody>
-                                            {
-                                                works.map(({ _id, responsable : {name, last_name}, team , place, execution_date, status_work }, index) => (
-                                                    <tr key={_id}>
-                                                        <td>
-                                                            { index + 1}
-                                                        </td>
-                                                        <td>
-                                                            { name } { last_name }
-                                                        </td>
-                                                        <td>
-                                                            { team.name } 
-                                                        </td>
-                                                        <td>
-                                                            { place.name }
-                                                        </td>
-                                                        <td>
-                                                            { new Date(execution_date).toLocaleString().replace('GMT-0500 (hora estándar de Colombia)', '') }
-                                                        </td>
-                                                        <td style={{color: setColorStatus(status_work), fontWeight: 'bold'}}>
-                                                            { status_work }
-                                                        </td>
-                                                        <td className="td-actions text-left">
-                                                            <Link to={`/tarea/${_id}`} type="button" rel="tooltip" title="Editar lugar" className="btn btn-primary btn-link btn-sm">
-                                                                <i className="material-icons">edit</i>
-                                                            </Link>
-                                                            <button 
-                                                                type="button" 
-                                                                rel="tooltip" 
-                                                                title="Eliminar lugar" 
-                                                                className="btn btn-danger btn-link btn-sm"
-                                                                onClick={() => deleteWork(_id)}
-                                                            >
-                                                                <i className="material-icons">close</i>
-                                                            </button>
-                                                        </td>
-                                                    </tr>
-                                                ))
-                                            }
-                                        </tbody>
-                                    </table>
-                                </div>
+                                { works &&
+                                    <div className="table-responsive">
+                                        <table className="table">
+                                            <thead className="">
+                                                <tr>
+                                                    <th>
+                                                        #
+                                                    </th>
+                                                    <th>
+                                                        Responsable
+                                                    </th>
+                                                    <th>
+                                                        Equipo
+                                                    </th>
+                                                    <th>
+                                                        Nombre Sitio
+                                                    </th>
+                                                    <th>
+                                                        Fecha Ejecución
+                                                    </th>
+                                                    <th>
+                                                        Estado
+                                                    </th>
+                                                    <th>
+                                                        Opciones
+                                                    </th>
+                                                </tr></thead>
+                                            <tbody>
+                                                {
+                                                    works.map(({ _id, responsable, team , place, execution_date, status_work }, index) => {
+                                                        if( !responsable ) return null;
+                                                        const { name, last_name } = responsable;
+                                                        return (
+                                                            <tr key={_id}>
+                                                                <td>
+                                                                    { index + 1}
+                                                                </td>
+                                                                <td>
+                                                                    { name } { last_name }
+                                                                </td>
+                                                                <td>
+                                                                    { team.name } 
+                                                                </td>
+                                                                <td>
+                                                                    { place.name }
+                                                                </td>
+                                                                <td>
+                                                                    { new Date(execution_date).toLocaleString().replace('GMT-0500 (hora estándar de Colombia)', '') }
+                                                                </td>
+                                                                <td style={{color: setColorStatus(status_work), fontWeight: 'bold'}}>
+                                                                    { status_work }
+                                                                </td>
+                                                                <td className="td-actions text-left">
+                                                                    <Link to={`/tarea/${_id}`} type="button" rel="tooltip" title="Editar lugar" className="btn btn-primary btn-link btn-sm">
+                                                                        <i className="material-icons">edit</i>
+                                                                    </Link>
+                                                                    <button 
+                                                                        type="button" 
+                                                                        rel="tooltip" 
+                                                                        title="Eliminar lugar" 
+                                                                        className="btn btn-danger btn-link btn-sm"
+                                                                        onClick={() => deleteWork(_id)}
+                                                                    >
+                                                                        <i className="material-icons">close</i>
+                                                                    </button>
+                                                                </td>
+                                                            </tr>
+                                                        )
+                                                    })
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                }
                             </div>
                         </div>
                     </div>

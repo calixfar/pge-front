@@ -43,6 +43,7 @@ const Filter = ({
                             <ul className="customSubDropDown">
                                 {
                                     team.members.map(( member ) => {
+                                        if(!member.user) return null;
                                         const { user: { name, _id } } = member;
                                         const userInTeamLocation = teamsLocations[_id];
                                         

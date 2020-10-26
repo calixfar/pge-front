@@ -14,23 +14,26 @@ export const mapUserCoordWithMembersTeam = (teams, usersCoords) => {
     // CHANGE
     teams.forEach( (team) => {
           team.members.forEach(({ user }) => {
-            const { _id, name, last_name, phone, latitude, longitude } = user;
-            const isCoordsBd = latitude !== '' && longitude !== '';
-            const enable = usersCoords[_id] ? usersCoords[_id].enable : isCoordsBd ? ENABLE.OFF : ENABLE.UNKNOWN,
-            coords = usersCoords[_id] ? usersCoords[_id].coords : isCoordsBd ? {
-                latitude: parseFloat(latitude),
-                longitude: parseFloat(longitude)
-            } : null
-            temp[_id] = {
-                id: _id,
-                name: `${ name } ${last_name}`,
-                phone,
-                enable,
-                coords,
-                show: true,
-                teamId: team._id,
-                teamName: team.name
-            }
+                if( user ) {
+                    const { _id, name, last_name, phone, latitude, longitude } = user;
+                    const isCoordsBd = latitude !== '' && longitude !== '';
+                    const enable = usersCoords[_id] ? usersCoords[_id].enable : isCoordsBd ? ENABLE.OFF : ENABLE.UNKNOWN,
+                    coords = usersCoords[_id] ? usersCoords[_id].coords : isCoordsBd ? {
+                        latitude: parseFloat(latitude),
+                        longitude: parseFloat(longitude)
+                    } : null
+                    temp[_id] = {
+                        id: _id,
+                        name: `${ name } ${last_name}`,
+                        phone,
+                        enable,
+                        coords,
+                        show: true,
+                        teamId: team._id,
+                        teamName: team.name
+                    }
+                }
+            
           });
     });
     return temp;
