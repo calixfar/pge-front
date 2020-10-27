@@ -112,7 +112,7 @@ const FormWork = ({ work }) => {
     }, []);
 
     useEffect(() => {
-        if( permitSearchMembers &&isInitialWork && teams.length ) {
+        if( permitSearchMembers && isInitialWork && teams.length ) {
             const team = teams.find(({_id}) => _id === work.team);
             setMembers(team.members.filter(({ user: { type_user } }) => type_user === 'EMPLOYEE') );
             setPermitSearchMembers(false);

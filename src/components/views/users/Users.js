@@ -110,7 +110,7 @@ const Users = () => {
                                             </tr></thead>
                                         <tbody>
                                             {
-                                                users.map(({ _id, name, last_name, phone, type_user }, index) => (
+                                                users.map(({ _id, name, last_name, phone, type_user, team_id }, index) => (
                                                     <tr key={_id}>
                                                         <td>
                                                             { index + 1}
@@ -119,7 +119,7 @@ const Users = () => {
                                                             { name } { last_name }
                                                         </td>
                                                         <td>
-                                                            Niger
+                                                            { team_id ? team_id.name : '--' }
                                                         </td>
                                                         <td>
                                                             { type_user }
