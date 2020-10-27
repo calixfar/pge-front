@@ -30,7 +30,7 @@ export const typesStatusWork = {
     Culminada: {
         color: '#53CF07',
         icon: 'check_circle_outline',
-        text: 'Sitios integados',
+        text: 'Sitios integrados',
         value: 'Culminada',
         bd: true
     },
