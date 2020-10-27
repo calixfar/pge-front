@@ -2,7 +2,7 @@ export const typesStatusWork = {
     Sin_revisar: {
         color: '#000',
         icon: 'visibility_off',
-        text: 'Vista SO Claro',
+        text: 'Visita SO Claro',
         value: 'Sin_revisar',
         bd: true
     }, 
@@ -16,7 +16,7 @@ export const typesStatusWork = {
     Navegacion: {
         color: '#2C5ED9',
         icon: 'near_me',
-        text: 'Sitios en PRE-STATING',
+        text: 'Sitios en PRE-STAGING',
         value: 'Navegacion',
         bd: true
     },
@@ -30,7 +30,7 @@ export const typesStatusWork = {
     Culminada: {
         color: '#53CF07',
         icon: 'check_circle_outline',
-        text: 'Sitios entregados',
+        text: 'Sitios integados',
         value: 'Culminada',
         bd: true
     },
