@@ -57,7 +57,6 @@ const EmployeeState = ({ children }) => {
         try {
             console.log('entro work search', workId);
             const res = await axiosClient.get(`/api/v1/work-activity/${workId}`);
-            console.log(res);
             dispatch({
                 type: GET_WORK_ACTIVITIES,
                 payload: res.data.activities
@@ -65,6 +64,23 @@ const EmployeeState = ({ children }) => {
 
         } catch (error) {
             console.log(error.response);
+        }
+    }
+
+    const changeStatusWork = async (workId, data) => {
+        try {
+            const res = await axiosClient.put(`/api/v1/work-status/${workId}`, data);
+            getWorks();
+            return {
+                status: true,
+                msg: res.data.msg
+            };
+        } catch (error) {
+            console.log(error.response);
+            return {
+                status: false,
+                msg: error.response.data.msg
+            };
         }
     }
 
@@ -79,7 +95,8 @@ const EmployeeState = ({ children }) => {
                 getWorks,
                 selectWork,
                 resetSelectedWork,
-                getActivitiesByWork
+                getActivitiesByWork,
+                changeStatusWork
             }}
         >
             {children }

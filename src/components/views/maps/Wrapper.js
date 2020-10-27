@@ -25,6 +25,7 @@ const Wrapper = () => {
     
     const [teamsLocations, setTeamsLocations] = useState(null);
     const [userSelected, setUserSelected] = useState(null);
+    const [placeSelected, setPlaceSelected] = useState(null);
     const [showInfoWindow, setShowInfoWindow] = useState({
         member: false,
         place: false
@@ -66,6 +67,9 @@ const Wrapper = () => {
 
     const updateUserSelected = (value) => {
         setUserSelected(value);
+    }
+    const updatePlaceSelected = (value) => {
+        setPlaceSelected(value);
     }
 
     const updateShowInfoWindow = (type, value) => {
@@ -121,6 +125,8 @@ const Wrapper = () => {
                             onZoomChange={ onZoomChange }
                             sizeMarkerPlace={ sizeMarkerPlace }
                             showPlaces={ showPlaces }
+                            updatePlaceSelected={ updatePlaceSelected }
+                            placeSelected={ placeSelected }
                         />
                     </div>
                     <div className="col-md-4 colFilters">

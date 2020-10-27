@@ -17,7 +17,9 @@ const Map = ({
     updateShowInfoWindow,
     onZoomChange,
     sizeMarkerPlace,
-    showPlaces
+    showPlaces,
+    updatePlaceSelected,
+    placeSelected
 }) => {
     const mapContainerStyle = {
         width: '100%',
@@ -37,6 +39,10 @@ const Map = ({
         updateUserSelected(member);
         updateShowInfoWindow('member', true);
     }
+    const onClickMarkerPlace = ( place ) => {
+        updatePlaceSelected(place);
+        updateShowInfoWindow('place', true);
+    }
 
     const closeInfoWindow = (type) => {
         updateShowInfoWindow(type, false)
@@ -51,37 +57,8 @@ const Map = ({
     // 3.9301794,-77.2987238,6z/data=!4m5!3m4!1s0x8e15a43aae1594a3:0x9a0d9a04eff2a340!8m2!3d4.570868!4d-74.297333?hl=es
     // https://www.google.com/maps/place/Colombia/@5.0035534,-76.5296808,6z/data=!4m5!3m4!1s0x8e15a43aae1594a3:0x9a0d9a04eff2a340!8m2!3d4.570868!4d-74.297333?hl=es
 
-    const RenderMarker = ( { id, position, icon, onClick, isMap, selected } ) => {
-        const optionsIcon = {
-            url: icon
-        }
-        optionsIcon.scaledSize = {width: 30, height: 40};                               
-        optionsIcon.origin = {x: 0, y: 0};                           
-        optionsIcon.anchor = {x: 25, y: 25}
-        if( isMap ) {
-            optionsIcon.scaledSize = sizeMarkerPlace;                               
-            optionsIcon.origin = {x: 0, y: 0};                           
-            optionsIcon.anchor = {x: 5, y: 5}
-        }
-
-        if( selected ) {
-            optionsIcon.scaledSize = {
-                width: 40, height: 50
-            }
-        };
-
-        return (
-            <Marker
-                key={`${id}${new Date().getTime()}`}
-                position={position}
-                icon={optionsIcon}
-                onClick={ onClick }
-            />
-        )
-    }
 
     const getOptionsIcon = ( urlIcon, isMap, selected ) => {
-        const options = {};
         const optionsIcon = {
             url: urlIcon
         }
@@ -116,7 +93,7 @@ const Map = ({
                                 lng: parseFloat(longitude)
                             }}
                             icon={getOptionsIcon(`/arquivos/marketUnknow.png`, true, false)}
-                            onClick={ () => {} }
+                            onClick={ () => onClickMarkerPlace(place) }
                         />
                     )
                 })
@@ -152,7 +129,7 @@ const Map = ({
         )
     }
 
-    const renderedInfoWindow = () => {
+    const renderedInfoWindowMember = () => {
         const { coords: { latitude, longitude }, name, teamName, phone, enable } = userSelected;
         return (
             <InfoWindow 
@@ -167,6 +144,29 @@ const Map = ({
                     <p style={{margin: '10px 0 0 0'}}>Equipo: { teamName }</p>
                     <p style={{margin: '10px 0 0 0'}}>Teléfono: { phone }</p>
                     <p style={{margin: '10px 0 0 0'}}>Estado: { stateByEnable(enable, 'map') }</p>
+                    <p style={{margin: '10px 0 0 0'}}>Latitud: { latitude }</p>
+                    <p style={{margin: '10px 0 0 0'}}>Longitud: { longitude }</p>
+                    
+                </div>
+            </InfoWindow>
+        )
+    }
+    const renderedInfoWindowPlace = () => {
+        const { latitude, longitude, name, code_site, owner, zone } = placeSelected;
+        console.log('placeSelected', placeSelected);
+        return (
+            <InfoWindow 
+                position={{ 
+                    lat: parseFloat(latitude),
+                    lng: parseFloat(longitude)
+                }}
+                onCloseClick={ () => closeInfoWindow('place') }
+            >
+                <div>
+                    <h2 style={{textAlign: 'center', fontSize: '16px', fontWeight: 'bold'}}>{name}</h2>
+                    <p style={{margin: '10px 0 0 0'}}>Código sitio: { code_site }</p>
+                    <p style={{margin: '10px 0 0 0'}}>Zona: { zone }</p>
+                    <p style={{margin: '10px 0 0 0'}}>Propietario: { owner }</p>
                     <p style={{margin: '10px 0 0 0'}}>Latitud: { latitude }</p>
                     <p style={{margin: '10px 0 0 0'}}>Longitud: { longitude }</p>
                     
@@ -191,7 +191,8 @@ const Map = ({
                     <> 
                     { renderedMarketsMembers() }
                     { showPlaces && places && renderedMarketsPlaces() }
-                    { userSelected && showInfoWindow.member && renderedInfoWindow() }
+                    { userSelected && showInfoWindow.member && renderedInfoWindowMember() }
+                    { placeSelected && showInfoWindow.place && renderedInfoWindowPlace() }
                     </> 
                 }
             </GoogleMap>

@@ -12,7 +12,7 @@ function SummaryStatusWork({ status, value, total }) {
                     <div className="card-icon" style={{backgroundColor: typesStatusWork[status].color}}>
                         <i className="material-icons">{typesStatusWork[status].icon}</i>
                     </div>
-                    <p className="card-category">Tareas {typesStatusWork[status].text}</p>
+                    <p className="card-category">{typesStatusWork[status].text}</p>
                     <h3 style={{color: '#ccc'}}>{ text }</h3>
                 </div>
             </div>

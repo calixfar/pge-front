@@ -8,7 +8,7 @@ import { typesStatusWork } from '../../../../../types/works';
 import './styles.css';
 const Work = ({ work }) => {
     const workContext = useContext(WorkContext);
-    const { updateWork } = workContext;
+    const { changeStatusWork } = workContext;
 
     const initialShowSideBars = {
         reporProblem: false,
@@ -25,9 +25,6 @@ const Work = ({ work }) => {
     const changeCommentary = (value) => {
         setCommentary(value);
     }
-    const changeStatusWork = (value) => {
-
-    }
     const changeMsg = (value) => {
         if( value === '' ) return;
         setMsg(value);
@@ -43,7 +40,7 @@ const Work = ({ work }) => {
         });
     }
 
-    const onClickActionUser = (value) => {
+    const onClickActionUser = async (value) => {
 
         const { status_work } = work;
 
@@ -62,6 +59,12 @@ const Work = ({ work }) => {
                 changeShowSidebars('reporProblem',true);
                 break;
             default:
+                const res = await changeStatusWork(work._id, { status_work: value, commentary });
+                console.log(res);
+                changeMsg({
+                    type: res.status ? 'success' : 'error',
+                    value: res.msg
+                });
                 break;
         }
     }
@@ -92,7 +95,7 @@ const Work = ({ work }) => {
                     <ActionsUser
                         onClickActionUser={ onClickActionUser }
                     />
-                    <p className={`textMsg ${ msg.value !== '' ? `showMsg ${msg.type === 'success' ? 'textSucess' : 'textError'}` : '' }`}> { msg.value } </p>
+                    <p className={`textMsg ${ msg.value !== '' ? `showMsg ${msg.type === 'success' ? 'textSuccess' : 'textError'}` : '' }`}> { msg.value } </p>
                 </div>
             </div>
             <SideBar

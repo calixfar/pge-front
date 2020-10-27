@@ -1,15 +1,17 @@
 import React from 'react';
 import SidebarWorks from './components/SidebarWorks';
 import Header from './components/Header';
-import WorkState from './context/state';
+import Dashboard from './components/Dashboard';
+import EmployeeState from './context/state';
 export default () => {
 
     return (
         <div className="main-panel">
-            <WorkState>
+            <EmployeeState>
                 <SidebarWorks/>
                 <Header/>
-            </WorkState>
+                <Dashboard/>
+            </EmployeeState>
         </div>
     )
 }

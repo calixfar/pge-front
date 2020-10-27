@@ -77,11 +77,11 @@ const AuthState = ({ children }) => {
             })
         } catch (error) {
             console.log(error.response);
-            dispatch({
-                type: LOGIN_ERROR,
-                payload: error.response.data.msg 
-            })
-            if( error.response.data.msg !== 'token not valide' ) actionAlert()
+            // dispatch({
+            //     type: LOGIN_ERROR,
+            //     payload: error.response.data.msg 
+            // })
+            // if( error.response.data.msg !== 'token not valide' ) actionAlert()
         }
     }
 

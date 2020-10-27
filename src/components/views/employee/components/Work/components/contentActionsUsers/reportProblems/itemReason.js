@@ -13,7 +13,6 @@ const ItemReason = ({
     //         itemRef.click();
     //     }
     // }, [check]);
-    console.log(value, selected);
     return (
         <div className="itemActivity">
             <label className="">

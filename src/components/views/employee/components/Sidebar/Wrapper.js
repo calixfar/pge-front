@@ -2,9 +2,6 @@ import React from 'react';
 import './styles.css';
 const SideBar = ({ content, show, hideSideBar, hideBtnBack }) => {
 
-    console.log(content, show, hideSideBar);
-
-
     return (
         <div className={`containerSideBar ${show && content ? 'showSideBar' : ''}`}>
             <div className="containerSideBarHeader">

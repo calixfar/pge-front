@@ -99,7 +99,9 @@ const FormWork = ({ work }) => {
             setMembers(null);
         }
         else {
+            console.log('teams', teams);
             const team = teams.find(({_id}) => _id === value);
+            console.log('team', team);
             setMembers(team.members.filter(({ user: { type_user } }) => type_user === 'EMPLOYEE') );
         }
         changeState(e);

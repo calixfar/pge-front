@@ -5,7 +5,9 @@ export const searchInitializedWork = (works , callback) => {
     let temp = null;
     for( let work of works ) {
         if( work.status_work === typesStatusWork.Inicio_tarea.value || 
-            work.status_work === typesStatusWork.Navegacion.value) {
+            work.status_work === typesStatusWork.Navegacion.value ||
+            work.status_work === typesStatusWork.Pendiente.value ) 
+             {
                 temp = work;
                 break;
         }
