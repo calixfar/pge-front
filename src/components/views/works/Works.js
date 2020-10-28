@@ -80,7 +80,7 @@ const Works = () => {
                                             <tbody>
                                                 {
                                                     works.map(({ _id, responsable, team , place, execution_date, status_work }, index) => {
-                                                        if( !responsable ) return null;
+                                                        if( !responsable || !place ) return null;
                                                         const { name, last_name } = responsable;
                                                         return (
                                                             <tr key={_id}>
