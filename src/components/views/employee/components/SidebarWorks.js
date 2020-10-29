@@ -6,6 +6,7 @@ import SideBar from './Sidebar';
 import Work from './Work/Work';
 import { searchInitializedWork } from '../../../../utils/employee';
 import '../styles.css';
+import { typesStatusWork } from '../../../../types/works';
 const SideBarWork = () => {
     const authContext = useContext(AuthContext);
     const workContext = useContext(WorkContext);
@@ -14,6 +15,7 @@ const SideBarWork = () => {
 
     const [dataWork, setDataWork] = useState(null);
     const [ showSideBar, setShowSideBar ] = useState(false);
+    const [localWorks, setLocalWorks] = useState(null);
 
     const changeDataWork = (value) => {
         setDataWork(value);
@@ -31,11 +33,18 @@ const SideBarWork = () => {
     useEffect(() => {
         if( !works ) return;
         const res = searchInitializedWork(works);
+        console.log('searchInitializedWork' ,res);
         selectWork( res );
+        setLocalWorks(works.filter((work) => work.status_work !== typesStatusWork.Culminada.value &&
+            work.status_work !== typesStatusWork.Problema.value ));
+        // setLocalWorks(works);
     }, [works]);
 
     useEffect(() => {
-        if( !initialized_work ) return;
+        if( !initialized_work ) {
+            changeShowSideBar(false);
+            return;
+        }
 
         changeDataWork(initialized_work);
 
@@ -54,11 +63,10 @@ const SideBarWork = () => {
         </Link></div>
             <div className="sidebar-wrapper">
                 {
-                    works !== null && works.length ?
+                    localWorks !== null && localWorks.length ?
                     <div className="table-responsive">
                         {
-                            works.map((work) => {
-
+                            localWorks.map((work) => {
                                 return (
                                     <div 
                                         key={work._id} 
@@ -66,14 +74,14 @@ const SideBarWork = () => {
                                         style={{cursor: 'pointer'}}
                                         onClick={() => changeDataWork(work)}
                                     >
-                                        <div className="card-header card-header-success">
+                                        <div className="card-header" style={{background: typesStatusWork[work.status_work].color}}>
                                             <h4 style={{textAlign: 'center'}} className="card-title">{work.type.type}</h4>
                                         </div>
                                         <div className="card-body">
                                             <p>Lugar: {work.place.name}</p>
                                             <p>ID estación: {work.id_base_station}</p>
                                             <p>Prioridad: {work.priority}</p>
-                                            <p>Estado tarea: {work.status_work.replace(/_/g, ' ')}</p>
+                                            <p>Estado tarea: {typesStatusWork[work.status_work].text}</p>
                                         </div>
                                     </div>
                                 )

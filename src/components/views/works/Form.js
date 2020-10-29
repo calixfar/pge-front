@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import WorkContext from './context/WorkContext';
 import Swal from 'sweetalert2';
 import { withRouter } from 'react-router-dom';
+import { typesStatusWork } from '../../../types/works';
 
 const FormWork = ({ work }) => {
 
@@ -133,12 +134,24 @@ const FormWork = ({ work }) => {
         type,
         priority,
         commentary } = state;
+
+        const color = isInitialWork ? typesStatusWork[state.status_work].color: '#1b458f';
     return (
         <div className="row">
             <div className={`col-md-12`}>
                 <div className="card">
-                    <div className="card-header background-blue">
-                    <h4 className="card-title">{ 'Registrar tarea' }</h4>
+                    <div className="card-header" style={{background: color}}>
+                    <div className="row">
+                        <div className="col-md-6">
+                            <h4 className="card-title">{ 'Registrar tarea' }</h4>
+                        </div>
+                        {
+                            isInitialWork &&
+                            <div className="col-md-6 justify-content-center row">
+                                <h4 className="card-title">Estado: { typesStatusWork[state.status_work].text }</h4>
+                            </div>
+                        }
+                    </div>
                     </div>
                     <div className="card-body">
                         <form>
@@ -309,8 +322,9 @@ const FormWork = ({ work }) => {
                             <div className="row d-flex justify-content-center mt-3">
                                 <button
                                     type="button"
-                                    className="btn background-blue pull-right"
+                                    className="btn pull-right"
                                     onClick={handleBtnForm}
+                                    style={{background: color}}
                                 >{isInitialWork ? 'ACTUALIZAR' : 'REGISTRAR'}</button>
                                 <div className="clearfix" />
                             </div>

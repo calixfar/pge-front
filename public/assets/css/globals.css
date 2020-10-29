@@ -23,3 +23,21 @@
     color: #fff !important;
     font-weight: bold;
 }
+.textMsg {
+    transition: all 0.3s;
+    max-height: 0;
+    overflow: hidden;
+    margin: 0;
+    font-size: 16px;
+    text-align: center;
+}
+.showMsg {
+    max-height: 50px;
+    margin-top: 15px;
+}
+.textSuccess {
+    color: green;
+}
+.textError {
+    color: red;
+}

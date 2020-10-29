@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import ListReasons from './ListReasons';
 import '../../styles.css';
-const ContentReportProblem = ({ commentary }) => {
+const ContentReportProblem = ({ sendReportProblem }) => {
 
     const initialMsg = {
         value: '',
         type: ''
     }
-    const [ reason, setReason ] = useState(commentary);
+    const [ reason, setReason ] = useState('');
     const [showOtherReason, setShowOtherReason] = useState(false);
     const [msg, setMsg] = useState(initialMsg);
 
@@ -19,7 +19,7 @@ const ContentReportProblem = ({ commentary }) => {
         }, 3000)
     }
 
-    const changeCommentary = ( value ) => {
+    const changeReason = ( value ) => {
         console.log(value);
         if( value !== 'Otro' ) {
             setReason(value);
@@ -34,8 +34,9 @@ const ContentReportProblem = ({ commentary }) => {
     const onClickReport = () => {
         if( reason === '' ) changeMsg({
             type: 'error',
-            value: 'Debes seleccionar una opción'
-        })
+            value: 'Debes seleccionar una opción o escribir un motivo'
+        });
+        sendReportProblem(reason);
     }
 
     return (
@@ -44,7 +45,7 @@ const ContentReportProblem = ({ commentary }) => {
             <ListReasons
                 commentary={reason}
                 showOtherReason={showOtherReason}
-                onChangeReason={changeCommentary}
+                onChangeReason={changeReason}
             />
             <div class={`form-group bmd-form-group otherReason ${showOtherReason ? 'showOtherReason' : ''}`}>
                 <label class="bmd-label-floating"> Motivo</label>

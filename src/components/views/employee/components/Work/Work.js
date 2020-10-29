@@ -20,11 +20,7 @@ const Work = ({ work }) => {
     }
     const [ showSidebars, setShowSidebars ] = useState(initialShowSideBars);
     const [msg, setMsg] = useState(initialMsg);
-    const [commentary, setCommentary] = useState('');
 
-    const changeCommentary = (value) => {
-        setCommentary(value);
-    }
     const changeMsg = (value) => {
         if( value === '' ) return;
         setMsg(value);
@@ -40,9 +36,7 @@ const Work = ({ work }) => {
         });
     }
 
-    const onClickActionUser = async (value) => {
-
-        const { status_work } = work;
+    const onClickActionUser = async (value, commentary) => {
 
         switch (value) {
             case 'Editar':
@@ -59,7 +53,7 @@ const Work = ({ work }) => {
                 changeShowSidebars('reporProblem',true);
                 break;
             default:
-                const res = await changeStatusWork(work._id, { status_work: value, commentary });
+                const res = await changeStatusWork(work._id, { status_work: value, commentary: commentary || '' });
                 console.log(res);
                 changeMsg({
                     type: res.status ? 'success' : 'error',
@@ -69,9 +63,13 @@ const Work = ({ work }) => {
         }
     }
 
+    const sendReportProblem = (commentary) => {
+        changeShowSidebars('reporProblem', false);
+        onClickActionUser(typesStatusWork.Problema.value, commentary);
+    }
+
     useEffect(() => {
         if( !work ) return;
-        setCommentary(work.commentary)
     }, [work]);
 
     if( !work ) return <></>
@@ -101,12 +99,14 @@ const Work = ({ work }) => {
             <SideBar
                 show={ showSidebars.activities }
                 hideSideBar={ () => changeShowSidebars('activities', false) }
-                content={ <ContentActivities workId={work._id}/> }
+                content={ <ContentActivities workId={work._id} commentary={work.commentary}/> }
             />
             <SideBar
                 show={ showSidebars.reporProblem }
                 hideSideBar={ () => changeShowSidebars('reporProblem', false) }
-                content={ <ContentReportProblem commentary={commentary}/> }
+                content={ <ContentReportProblem 
+                    sendReportProblem={ sendReportProblem }
+                    /> }
             />
         </div>
     )

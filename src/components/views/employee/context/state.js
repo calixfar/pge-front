@@ -83,6 +83,20 @@ const EmployeeState = ({ children }) => {
             };
         }
     }
+    const changeSatusActivity = async (workActivityId, data) => {
+        try {
+            const res = await axiosClient.put(`/api/v1/work-activity/${workActivityId}`, data);
+            return {
+                status: true,
+                msg: res.data.msg
+            };
+        } catch (error) {
+            return {
+                status: false,
+                msg: error.response.data.msg
+            };
+        }
+    }
 
     return (
         <Context.Provider
@@ -96,7 +110,8 @@ const EmployeeState = ({ children }) => {
                 selectWork,
                 resetSelectedWork,
                 getActivitiesByWork,
-                changeStatusWork
+                changeStatusWork,
+                changeSatusActivity
             }}
         >
             {children }

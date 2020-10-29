@@ -1,11 +1,18 @@
 import React, { useState, useEffect }  from 'react';
 import '../../styles.css';
-export default ({  name, status, onChangeStatusActivity }) => {
+export default ({ _id,  name, status, onChangeStatusActivity }) => {
 
     const [value, setValue] = useState(status);
+    const [hasChange, setHasChange] = useState(null);
+
+    const updateValue = (value) => {
+        setHasChange(true);
+        setValue(value);
+    }
 
     useEffect(() => {
-        onChangeStatusActivity ( value );
+        if( !hasChange ) return;
+        onChangeStatusActivity ( _id, value );
     }, [value])
 
     return (
@@ -17,7 +24,7 @@ export default ({  name, status, onChangeStatusActivity }) => {
                         type="checkbox" 
                         name="status"
                         defaultChecked={value}
-                        onChange={ () => setValue(!value) }
+                        onChange={ () => updateValue(!value) }
                     />
                     <span className="form-check-sign">
                         <span className="check" />

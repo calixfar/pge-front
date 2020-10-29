@@ -35,7 +35,7 @@ export default ({
         },
         {
             id: '0015',
-            value: typesStatusWork.Pendiente.value,
+            value: typesStatusWork.Culminada.value,
             iconClass: 'far fa-thumbs-up',
             color: 'linear-gradient(60deg, #66bb6a, #43a047)',
             valueBack: true
@@ -49,7 +49,7 @@ export default ({
                         <button 
                             key={id} 
                             style={{background: color}}
-                            className={ `btnAction ${ value === typesStatusWork.Pendiente.value ? 'btnSendWork' : '' }` }
+                            className={ `btnAction ${ value === typesStatusWork.Culminada.value ? 'btnSendWork' : '' }` }
                             onClick={ () => onClickActionUser(value) }
                         >
                             <i className={`${iconClass}`}></i>

@@ -24,10 +24,10 @@ const Wrapper = () => {
         <div className="content content-pdf">
             <div className="container-fluid">
                 <div className="row">
-                    <div className="col-md-4">
+                    <div className="col-md-3">
                         <FilterZones/>
                     </div>
-                    <div className="col-md-8">
+                    <div className="col-md-9">
                         <ListSummaryStatusWork
                             data={data}
                             total={countWorks.count}
