@@ -3,31 +3,12 @@ import WorkContext from './context/WorkContext';
 import Form from './Form';
 import Search from '../../general/Search';
 import { Link } from 'react-router-dom';
+import { typesStatusWork, typesWork } from '../../../types/works';
 // import Form from './Form';
 const Works = () => {
 
     const workContext = useContext(WorkContext);
     const { getWorks, works, deleteWork, getWorksBySearch } = workContext;
-
-    const setColorStatus = (status_work) => {
-        const casesStatus = ['Sin_revisar', 'Problema', 'Navegacion', 'Inicio_tarea', 'Culminada', 'Vista'];
-        switch (status_work) {
-            case casesStatus[0]:
-                return '#000';
-            case casesStatus[1]:
-                return '#D9312C';
-            case casesStatus[2]:
-                return '#2C5ED9';
-            case casesStatus[3]:
-                return '#EEE309';
-            case casesStatus[4]:
-                return '#53CF07';
-            case casesStatus[5]:
-                return '#53CF07';
-            default:
-                return '#9507CF';
-        }
-    }
 
     useEffect(() => {
         getWorks();
@@ -71,6 +52,9 @@ const Works = () => {
                                                         Fecha Ejecución
                                                     </th>
                                                     <th>
+                                                        Tipo
+                                                    </th>
+                                                    <th>
                                                         Estado
                                                     </th>
                                                     <th>
@@ -79,9 +63,14 @@ const Works = () => {
                                                 </tr></thead>
                                             <tbody>
                                                 {
-                                                    works.map(({ _id, responsable, team , place, execution_date, status_work }, index) => {
+                                                    works.map(({ _id, responsable, team , place, execution_date, status_work, type }, index) => {
                                                         if( !responsable || !place ) return null;
                                                         const { name, last_name } = responsable;
+                                                        const typeWork = {
+                                                            text: type.type ? typesWork[type.type] ? typesWork[type.type].text : type.type : '--',
+                                                            color: type.type && typesWork[type.type] ? typesWork[type.type].color : 'gray'
+                                                        }
+                                                        // console.log('object', type);
                                                         return (
                                                             <tr key={_id}>
                                                                 <td>
@@ -99,8 +88,12 @@ const Works = () => {
                                                                 <td>
                                                                     { new Date(execution_date).toLocaleString().replace('GMT-0500 (hora estándar de Colombia)', '') }
                                                                 </td>
-                                                                <td style={{color: setColorStatus(status_work), fontWeight: 'bold'}}>
-                                                                    { status_work }
+                                                                
+                                                                <td style={{color: typeWork.color , fontWeight: 'bold'}}>
+                                                                    { typeWork.text}
+                                                                </td>
+                                                                <td style={{color: typesStatusWork[status_work].color, fontWeight: 'bold'}}>
+                                                                    { typesStatusWork[status_work].text }
                                                                 </td>
                                                                 <td className="td-actions text-left">
                                                                     <Link to={`/tarea/${_id}`} type="button" rel="tooltip" title="Editar lugar" className="btn btn-primary btn-link btn-sm">

@@ -11,9 +11,9 @@ const Dashboard = () => {
     //     if( works !== null ) console.log('works count', );
     // }, [works]);
     
-    let countWorks;
+    let data;
     if( works ) {
-        countWorks = Object.values(getCountsWorks(works))
+        data = getCountsWorks(works)
     }
     return (
         <div className="content content-pdf">
@@ -24,8 +24,9 @@ const Dashboard = () => {
                             loading && !works ? 
                             <p>Loading...</p> :
                             <ListSummaryStatusWork
-                                data={ countWorks }
-                                total={ works.length }
+                                hideGeneralWors={ true }
+                                data={ data.countWorks }
+                                total={ data.count }
                             />
                         }
                     </div>

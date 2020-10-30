@@ -2,17 +2,20 @@ import React, { useReducer } from 'react';
 import Context from './context';
 import reducer from './reducer';
 import axiosClient from '../../../../config/axios';
+import { getCountEmployees } from '../utils';
 import {
     GET_COUNT_WORKS,
-    UPDATE_FILTER_ZONE
+    UPDATE_FILTER_ZONE,
+    GET_WORKS_USERS
 } from './types';
 
-export default ({ children }) => {
+const DashboardState = ({ children }) => {
 
     const initialState = {
         filterZone: 'ALL',
         countWorks: null,
         msg: null,
+        worksUsers: null,
         loading: true
     }
 
@@ -24,7 +27,19 @@ export default ({ children }) => {
             console.log('object', res);
             dispatch({
                 type: GET_COUNT_WORKS,
-                payload: res.data.countWorks
+                payload: res.data
+            })
+        } catch (error) {
+            return;
+        }
+    }
+    const getWorksUsers = async () => {
+        try {
+            const res = await axiosClient.get(`/api/v1/user-count`);
+            console.log('object', res);
+            dispatch({
+                type: GET_WORKS_USERS,
+                payload: getCountEmployees(res.data.worksUsers)
             })
         } catch (error) {
             return;
@@ -43,9 +58,11 @@ export default ({ children }) => {
             value={{
                 filterZone: state.filterZone,
                 countWorks: state.countWorks,
+                worksUsers: state.worksUsers,
                 msg: state.msg,
                 loading: state.loading,
                 getCountWorks,
+                getWorksUsers,
                 changeFilterZone
             }}
         >
@@ -53,6 +70,7 @@ export default ({ children }) => {
         </Context.Provider>
     )
 }
+export default DashboardState;
 
 
 

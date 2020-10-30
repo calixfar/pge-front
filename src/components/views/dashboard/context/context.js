@@ -1,2 +1,4 @@
 import { createContext } from 'react';
-export default createContext();
+
+const DashboardContext = createContext();
+export default DashboardContext;

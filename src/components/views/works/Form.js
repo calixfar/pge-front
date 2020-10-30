@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useMemo, useCallback } from 'react';
+import DataListInput from "react-datalist-input";
 import WorkContext from './context/WorkContext';
 import Swal from 'sweetalert2';
 import { withRouter } from 'react-router-dom';
@@ -74,16 +75,18 @@ const FormWork = ({ work }) => {
         [name]: value
     });
 
-    const changePlace = ({target: { value }}) => {
+    const changePlace = ({ key }) => {
+        console.log(key);
         const initialInfoPlace = {};
-        if( !value )  initialInfoPlace = {
+        if( !key  )  initialInfoPlace = {
             address: '',
             longitude: '',
             latitude: '',
             place: ''            
         }
         else {
-            const searchPlace = places.find(({_id}) => _id === value);
+            const searchPlace = places.find(({_id}) => _id === key);
+            if( searchPlace )
             initialInfoPlace.address = searchPlace.address;
             initialInfoPlace.longitude = searchPlace.longitude;
             initialInfoPlace.latitude = searchPlace.latitude;
@@ -122,6 +125,11 @@ const FormWork = ({ work }) => {
         }
     })
 
+    const optionsPlaces = useMemo(() => places.map(({_id, name}) => ({
+        label: name,
+        key: _id
+    })), [places]);
+
     const { 
         place,
         address,
@@ -157,9 +165,9 @@ const FormWork = ({ work }) => {
                         <form>
                             <div className="row mt-2 align-items-center">
                                 <div className="col-md-3">
-                                    <div className="form-group">
+                                    <div className="form-group" style={{marginTop: '-10px'}}>
                                         <label>Nombre Sitio</label>
-                                        <select 
+                                        {/* <select 
                                             className="form-control"
                                             name="place"
                                             onChange={ changePlace }
@@ -169,7 +177,17 @@ const FormWork = ({ work }) => {
                                             { places.map(({_id, name}) => (
                                                 <option key={_id} value={_id}>{ name }</option>
                                             )) }
-                                        </select>
+                                        </select> */}
+                                        {
+                                            places &&
+
+                                            <DataListInput
+                                                placeholder=""
+                                                items={optionsPlaces}
+                                                inputClassName="selectPlaces"
+                                                onSelect={changePlace}
+                                            />
+                                        }
                                     </div>
                                 </div>
                                 <div className="col-md-3">

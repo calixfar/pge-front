@@ -8,7 +8,7 @@ const FilterZones = () => {
     const { filterZone, changeFilterZone } = useContext(Context);
 
     return (
-        <div className="col-md-12 filterZones">
+        <div className="col-md-3 filterZones">
             <div className="card card-stats">
                 <div className="card-header card-header-warning card-header-icon">
                     <div className="card-icon">
