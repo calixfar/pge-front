@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect, useContext, memo } from 'react';
 import WorkContext from './context/WorkContext';
 import Form from './Form';
 import Search from '../../general/Search';
@@ -10,9 +10,9 @@ const Works = () => {
     const workContext = useContext(WorkContext);
     const { getWorks, works, deleteWork, getWorksBySearch } = workContext;
 
-    useEffect(() => {
-        getWorks();
-    }, [])
+    // useEffect(() => {
+    //     getWorks();
+    // }, [])
     
     return (
         <div className="content">
@@ -43,7 +43,7 @@ const Works = () => {
                                                         Responsable
                                                     </th>
                                                     <th>
-                                                        Equipo
+                                                        Grupos de trabajo
                                                     </th>
                                                     <th>
                                                         Nombre Sitio
@@ -66,6 +66,9 @@ const Works = () => {
                                                     works.map(({ _id, responsable, team , place, execution_date, status_work, type }, index) => {
                                                         if( !responsable || !place ) return null;
                                                         const { name, last_name } = responsable;
+                                                        console.log('type', type);
+
+                                                        
                                                         const typeWork = {
                                                             text: type.type ? typesWork[type.type] ? typesWork[type.type].text : type.type : '--',
                                                             color: type.type && typesWork[type.type] ? typesWork[type.type].color : 'gray'

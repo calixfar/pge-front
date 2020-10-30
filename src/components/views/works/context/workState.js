@@ -68,7 +68,7 @@ import {
      const getWorks = async () => {
         try {
             const res = await axiosClient.get('/api/v1/work');
-            console.log(res);
+            console.log('res wprkls',res);
              dispatch({
                  type: GET_WORKS,
                  payload: res.data.works

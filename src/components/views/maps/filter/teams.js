@@ -24,7 +24,7 @@ const Filter = ({
     if( teams === null ) return <></>;
     return (
         <div>
-            <h2 className="title-filter">Equipos</h2>
+            <h2 className="title-filter">Grupos de trabajo</h2>
             <ul className="customDropDown">
                 { teamsLocations !== null && teams.map((team) => {
                 return (
