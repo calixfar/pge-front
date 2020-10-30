@@ -70,7 +70,7 @@ const MainPanel = () => {
                                         </>  
                                     <Route component={Login}/>
                                 </Switch>
-                            <Footer/>
+                            {/* <Footer/> */}
                         </div>
                     }
                 </NotificationState>

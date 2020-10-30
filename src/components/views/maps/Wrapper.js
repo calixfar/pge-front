@@ -33,28 +33,22 @@ const Wrapper = () => {
     const [ sizeMarkerPlace, setSizeMarketPlace ] = useState(initialSizeMarkerPlace)
     const [ showPlaces, setShowPlaces ] = useState(true);
 
+    // const [zoomValue, setZoomValue] = useState(6);
+
 
     const updateShowPlaces = (value) => {
         setShowPlaces( value );
     }
 
-    const centerMap = () => {
+
+    const centerMap = ( data ) => {
         
         if(  mapRef.current === null ) return;
-        let center = {
-            lat: 3.9301794,
-            lng: -77.2987238
-        }
-        let zoom = 7;
-        // if( selectedShop !== null ) {
-        //     const { pickupPoint: {  address: { location: { latitude, longitude } } } } : any = selectedShop;
-        //     center.lat = latitude;
-        //     center.lng = longitude;
-
-        //     zoom = 14;
-        // };
+        console.log(data);
+        const {center, zoom} = data;
         mapRef.current.panTo(center);
         mapRef.current.setZoom(zoom);
+        // setZoomValue(zoom);
     } 
 
     const updateMapRef = ( value ) => {
@@ -65,11 +59,32 @@ const Wrapper = () => {
         setTeamsLocations(value);
     }
 
-    const updateUserSelected = (value) => {
+    const updateUserSelected = (value, isEventFilter) => {
         setUserSelected(value);
+        updateShowInfoWindow('member',true);
+
+        const { coords: { latitude, longitude } } = value;
+
+        if( isEventFilter ) centerMap({
+            center: {
+                lat: latitude,
+                lng: longitude
+            },
+            zoom: 16
+        })
     }
-    const updatePlaceSelected = (value) => {
+    const updatePlaceSelected = (value, isEventFilter) => {
+        console.log(value);
         setPlaceSelected(value);
+        updateShowInfoWindow('place', true);
+
+        if( isEventFilter ) centerMap({
+            center: {
+                lat: parseFloat(value.latitude),
+                lng: parseFloat(value.longitude)
+            },
+            zoom: 16
+        })
     }
 
     const updateShowInfoWindow = (type, value) => {
@@ -138,6 +153,8 @@ const Wrapper = () => {
                             updateShowInfoWindow={ updateShowInfoWindow }
                             showPlaces={ showPlaces }
                             updateShowPlaces={ updateShowPlaces }
+                            places={ places }
+                            updatePlaceSelected={ updatePlaceSelected }
                         />
                     </div>
                 </div>

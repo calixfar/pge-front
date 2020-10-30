@@ -10,7 +10,9 @@ function Filter({
     showInfoWindow,
     updateShowInfoWindow,
     showPlaces,
-    updateShowPlaces
+    updateShowPlaces,
+    updatePlaceSelected,
+    places
 }) {
     return (
         <div className="containerFilters">
@@ -18,6 +20,8 @@ function Filter({
                 <Places
                     showPlaces={ showPlaces }
                     updateShowPlaces={ updateShowPlaces }
+                    places={ places }
+                    updatePlaceSelected={updatePlaceSelected}
                 />
             </div>
             <div className="itemFilter itemFilterTeam">

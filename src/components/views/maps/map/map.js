@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 // import SideBar from '../employee/components/Sidebar';
 import {
     GoogleMap,
@@ -7,6 +7,7 @@ import {
     InfoWindow
 } from '@react-google-maps/api';
 import { stateByEnable } from '../utils';
+import MarkersMembers from './components/MarkersMembers';
 const Map = ({
     updateMapRef,
     teamsLocations,
@@ -21,6 +22,9 @@ const Map = ({
     updatePlaceSelected,
     placeSelected
 }) => {
+
+    console.log('teamsLocations', teamsLocations);
+    console.log('places', places);
     const mapContainerStyle = {
         width: '100%',
         height: '100%'
@@ -41,7 +45,6 @@ const Map = ({
     }
     const onClickMarkerPlace = ( place ) => {
         updatePlaceSelected(place);
-        updateShowInfoWindow('place', true);
     }
 
     const closeInfoWindow = (type) => {
@@ -103,31 +106,19 @@ const Map = ({
 
 
 
-    const renderedMarketsMembers = () => {
-        console.log('render');
-        const teamsLocationsValues = Object.values(teamsLocations);
-        return (
-            <>
-                {
-                    teamsLocationsValues.map(( member ) => {
-                        const { id, coords, show } = member;
-                        if( id === '5f851638a9e9c314c1887192' ) console.log(member);
-                        if( !coords || !show ) return null;
-                        if( id === '5f851638a9e9c314c1887192' ) console.log('paso');
-                        const defaultIcon = `/arquivos/market${ userSelected && userSelected.id === id ? 'Selected' : 'Default' }.png`;
-                        return (
-                            <Marker
-                                key={ id }
-                                position={{lat: coords.latitude, lng: coords.longitude}}
-                                icon={getOptionsIcon(defaultIcon, false, userSelected && userSelected.id === id)}
-                                onClick={ () => onClickMarkerMember(member) }
-                            />
-                        )
-                    })
-                }
-            </>
-        )
-    }
+    // const renderedMarketsMembers = () => {
+    //     console.log('render');
+    //     const teamsLocationsValues = Object.values(teamsLocations);
+        
+    //     const Markers = memo(( {data} ) => {
+
+    //     console.log('render memo');
+    //         return (
+                
+    //         )
+    //     })
+    //     return <Markers data={teamsLocationsValues}/>;
+    // }
 
     const renderedInfoWindowMember = () => {
         const { coords: { latitude, longitude }, name, teamName, phone, enable } = userSelected;
@@ -187,9 +178,16 @@ const Map = ({
                 center={initialCenter}
                 options={options}
             >
+                <MarkersMembers
+                    data={teamsLocations}
+                    userSelected={userSelected}
+                    getOptionsIcon={getOptionsIcon}
+                    onClickMarkerMember={onClickMarkerMember}
+                />
                 { teamsLocations !== null && 
                     <> 
-                    { renderedMarketsMembers() }
+                    {/* { renderedMarketsMembers() } */}
+                    
                     { showPlaces && places && renderedMarketsPlaces() }
                     { userSelected && showInfoWindow.member && renderedInfoWindowMember() }
                     { placeSelected && showInfoWindow.place && renderedInfoWindowPlace() }
@@ -199,4 +197,4 @@ const Map = ({
         </div>
     )
 }
-export default Map;
+export default memo(Map);

@@ -16,8 +16,8 @@ const Filter = ({
 
     const onClickMember = (member) => {
         if(member.coords === null) return;
-        updateUserSelected(member);
-        updateShowInfoWindow('member',true);
+        updateUserSelected(member, true);
+        
     }
 
     
