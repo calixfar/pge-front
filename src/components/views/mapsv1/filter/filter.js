@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React from 'react';
 import Teams from './teams';
 import Places from './places';
 
@@ -36,4 +36,4 @@ function Filter({
     );
 }
 
-export default memo(Filter);
+export default Filter;

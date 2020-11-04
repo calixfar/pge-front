@@ -51,7 +51,7 @@ const SideBar = () => {
                         </Link>
                     </li>
                     <li className={`nav-item ${navActive === 'mapa' ? 'background-blue' : ''}`} onClick={ () => changeActive('mapa')  }>
-                        <Link className="nav-link" to="./mapa">
+                        <Link className="nav-link" to="/mapa">
                             <i className="material-icons">map</i>
                             <p>Mapa</p>
                         </Link>

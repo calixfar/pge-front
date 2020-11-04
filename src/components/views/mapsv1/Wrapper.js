@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext, useRef, useCallback } from 'react';
+import React, { useEffect, useState, useContext, useRef } from 'react';
 import Map from './map/map';
 import Filter from './filter';
 import { getLocations } from '../../../utils/sockets';
@@ -10,7 +10,10 @@ const Wrapper = () => {
 
     let mapRef = useRef(null);
 
-    
+    const initialSizeMarkerPlace = {
+        width: 4,
+        height: 7
+    };
     const { 
         geoLocations, 
         getGeoLocations, 
@@ -27,19 +30,18 @@ const Wrapper = () => {
         member: false,
         place: false
     });
-    
+    const [ sizeMarkerPlace, setSizeMarketPlace ] = useState(initialSizeMarkerPlace)
     const [ showPlaces, setShowPlaces ] = useState(true);
 
     // const [zoomValue, setZoomValue] = useState(6);
 
 
-    const updateShowPlaces = useCallback((value) => {
-        console.log('fn updateShowPlaces');
+    const updateShowPlaces = (value) => {
         setShowPlaces( value );
-    }, [places])
+    }
 
 
-    const centerMap = useCallback(( data ) => {
+    const centerMap = ( data ) => {
         
         if(  mapRef.current === null ) return;
         console.log(data);
@@ -47,24 +49,22 @@ const Wrapper = () => {
         mapRef.current.panTo(center);
         mapRef.current.setZoom(zoom);
         // setZoomValue(zoom);
-        console.log('ref', mapRef.current.center.lat(), mapRef.current.center.lng());
-    }, [])
+    } 
 
-    const updateMapRef = useCallback(( value ) => {
+    const updateMapRef = ( value ) => {
         mapRef.current = value;
-    }, [])
+    }
 
-    // const updateTeamLocations = useCallback((value) => {
-    //     setTeamsLocations(value);
-    // },[teams, geoLocations])
+    const updateTeamLocations = (value) => {
+        setTeamsLocations(value);
+    }
 
-
-    const updateUserSelected = useCallback((value, isEventFilter) => {
+    const updateUserSelected = (value, isEventFilter) => {
         setUserSelected(value);
         updateShowInfoWindow('member',true);
 
         const { coords: { latitude, longitude } } = value;
-        console.log('cetner', latitude, longitude);
+
         if( isEventFilter ) centerMap({
             center: {
                 lat: latitude,
@@ -72,11 +72,8 @@ const Wrapper = () => {
             },
             zoom: 16
         })
-    }, [geoLocations , showInfoWindow]);
-
-    
-
-    const updatePlaceSelected = useCallback((value, isEventFilter) => {
+    }
+    const updatePlaceSelected = (value, isEventFilter) => {
         console.log(value);
         setPlaceSelected(value);
         updateShowInfoWindow('place', true);
@@ -88,15 +85,26 @@ const Wrapper = () => {
             },
             zoom: 16
         })
-    }, [places, placeSelected, showInfoWindow])
+    }
 
-    const updateShowInfoWindow = useCallback((type, value) => {
+    const updateShowInfoWindow = (type, value) => {
         setShowInfoWindow({
             ...showInfoWindow,
             [type]: value
         });
-    })
-    
+    }
+    const onZoomChange = () => {
+        const { current } = mapRef;
+        if( !current ) return;
+        const { zoom } = current;
+        
+        setSizeMarketPlace({
+            width: zoom <= 10 ? initialSizeMarkerPlace.width : zoom,  
+            height: zoom <= 10 ? initialSizeMarkerPlace.height : zoom + 5
+        })
+
+
+    }
 
     useEffect(() => {
         // console.log('entro effect', usuario);
@@ -122,17 +130,18 @@ const Wrapper = () => {
                     <div className="row completeHeight">
                     <div className="col-md-8 colMap">
                         <Map 
-                            updateMapRef={ updateMapRef }
+                            updateMapRef={updateMapRef}
                             teamsLocations={teamsLocations}
                             userSelected={userSelected}
                             updateUserSelected={ updateUserSelected }
                             showInfoWindow={ showInfoWindow }
                             places={ places }
+                            updateShowInfoWindow={ updateShowInfoWindow }
+                            onZoomChange={ onZoomChange }
+                            sizeMarkerPlace={ sizeMarkerPlace }
                             showPlaces={ showPlaces }
                             updatePlaceSelected={ updatePlaceSelected }
                             placeSelected={ placeSelected }
-                            updateShowInfoWindow={ updateShowInfoWindow }
-                            mapRef={ mapRef }
                         />
                     </div>
                     <div className="col-md-4 colFilters">

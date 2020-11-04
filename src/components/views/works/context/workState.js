@@ -168,7 +168,7 @@ import {
 
     const getWorksBySearch = async (search) => {
         try {
-            const res = await axiosClient.get(`/api/v1/work-search/${search}`);
+            const res = await axiosClient.get(`/api/v1/work-search/${search}/user/ALL`);
             console.log(res);
              dispatch({
                  type: GET_WORKS,

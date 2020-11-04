@@ -5,7 +5,8 @@ import { stateByEnable } from '../utils';
 const Filter = ({
     teamsLocations,
     userSelected,
-    updateUserSelected
+    updateUserSelected,
+    updateShowInfoWindow
 }) => {
 
     const { teams } = useContext(Context);

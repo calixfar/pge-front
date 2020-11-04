@@ -11,8 +11,7 @@ const MarkersMembers = ({ data, userSelected, getOptionsIcon, onClickMarkerMembe
                 Object.values(data).map(( member ) => {
                     const { id, coords, show } = member;
                     if( !coords || !show ) return null;
-                    // const defaultIcon = `/arquivos/market${ userSelected && userSelected.id === id ? 'Selected' : 'Default' }.png`;
-                    const defaultIcon = `/arquivos/marketServintelco.png`;
+                    const defaultIcon = `/arquivos/market${ userSelected && userSelected.id === id ? 'Selected' : 'Default' }.png`;
                     return (
                         <Marker
                             key={ id }

@@ -1,5 +1,4 @@
-import React, { memo, useEffect, useState, useContext, useCallback } from 'react';
-import Context from '../context/context';
+import React, { memo } from 'react';
 // import SideBar from '../employee/components/Sidebar';
 import {
     GoogleMap,
@@ -9,67 +8,41 @@ import {
 } from '@react-google-maps/api';
 import { stateByEnable } from '../utils';
 import MarkersMembers from './components/MarkersMembers';
-
-const mapContainerStyle = {
-    width: '100%',
-    height: '100%'
-}
-// -0.7675451,-80.3310071
-const initialCenter = {
-    lat: 5.0035534,
-    lng:-77.2987238
-}
-const options = {
-    disableDefaultUI: true,
-    zoomControl: true
-}
-
-const initialSizeMarkerPlace = {
-    width: 4,
-    height: 7
-};
-const getOptionsIcon = ( urlIcon, isMap, selected, sizeMarkerPlace ) => {
-    const optionsIcon = {
-        url: urlIcon
-    }
-    optionsIcon.scaledSize = {width: 30, height: 40};                               
-    optionsIcon.origin = {x: 0, y: 0};                           
-    optionsIcon.anchor = {x: 25, y: 25}
-    if( isMap ) {
-        optionsIcon.scaledSize = sizeMarkerPlace;                               
-        optionsIcon.origin = {x: 0, y: 0};                           
-        optionsIcon.anchor = {x: 5, y: 5}
-    }
-
-    if( selected ) {
-        optionsIcon.scaledSize = {
-            width: 40, height: 50
-        }
-    };
-    return { ...optionsIcon }
-};
-
 const Map = ({
     updateMapRef,
     teamsLocations,
-    // places,
+    places,
     userSelected,
     updateUserSelected,
     showInfoWindow,
     updateShowInfoWindow,
-    mapRef,
+    onZoomChange,
+    sizeMarkerPlace,
     showPlaces,
     updatePlaceSelected,
     placeSelected
 }) => {
 
-    const { places } = useContext(Context);
+    console.log('teamsLocations', teamsLocations);
+    console.log('places', places);
+    const mapContainerStyle = {
+        width: '100%',
+        height: '100%'
+    }
+    // -0.7675451,-80.3310071
+    const initialCenter = {
+        lat: 5.0035534,
+        lng:-77.2987238
+    }
+    const options = {
+        disableDefaultUI: true,
+        zoomControl: true
+    }
 
-    const [ sizeMarkerPlace, setSizeMarketPlace ] = useState(initialSizeMarkerPlace)
-
-    const onClickMarkerMember = useCallback(( member ) => {
+    const onClickMarkerMember = ( member ) => {
         updateUserSelected(member);
-    }, [userSelected])
+        updateShowInfoWindow('member', true);
+    }
     const onClickMarkerPlace = ( place ) => {
         updatePlaceSelected(place);
     }
@@ -77,32 +50,37 @@ const Map = ({
     const closeInfoWindow = (type) => {
         updateShowInfoWindow(type, false)
     }
-
-    const onZoomChange = () => {
-        const { current } = mapRef;
-        if( !current ) return;
-        const { zoom } = current;
-        
-        setSizeMarketPlace({
-            width: zoom <= 10 ? initialSizeMarkerPlace.width : zoom,  
-            height: zoom <= 10 ? initialSizeMarkerPlace.height : zoom + 5
-        })
-
-    }
     const resLoadMap = useLoadScript({
         googleMapsApiKey: 'AIzaSyCJZb0uQ_fXU53JfJQxYYCgKUJeSZSGTTQ'
     });
     const { isLoaded, loadError } = resLoadMap;
-
-    useEffect(() => {
-        console.log('render map');
-    })
     if( loadError ) return <div>Error al cargar el mapa</div>
     if( !isLoaded ) return <div>Cargando...</div>
 
     // 3.9301794,-77.2987238,6z/data=!4m5!3m4!1s0x8e15a43aae1594a3:0x9a0d9a04eff2a340!8m2!3d4.570868!4d-74.297333?hl=es
     // https://www.google.com/maps/place/Colombia/@5.0035534,-76.5296808,6z/data=!4m5!3m4!1s0x8e15a43aae1594a3:0x9a0d9a04eff2a340!8m2!3d4.570868!4d-74.297333?hl=es
 
+
+    const getOptionsIcon = ( urlIcon, isMap, selected ) => {
+        const optionsIcon = {
+            url: urlIcon
+        }
+        optionsIcon.scaledSize = {width: 30, height: 40};                               
+        optionsIcon.origin = {x: 0, y: 0};                           
+        optionsIcon.anchor = {x: 25, y: 25}
+        if( isMap ) {
+            optionsIcon.scaledSize = sizeMarkerPlace;                               
+            optionsIcon.origin = {x: 0, y: 0};                           
+            optionsIcon.anchor = {x: 5, y: 5}
+        }
+
+        if( selected ) {
+            optionsIcon.scaledSize = {
+                width: 40, height: 50
+            }
+        };
+        return { ...optionsIcon }
+    };
 
     const renderedMarketsPlaces = ()  => (
         <>
@@ -117,7 +95,7 @@ const Map = ({
                                 lat: parseFloat(latitude),
                                 lng: parseFloat(longitude)
                             }}
-                            icon={getOptionsIcon(`/arquivos/marketUnknow.png`, true, false, sizeMarkerPlace)}
+                            icon={getOptionsIcon(`/arquivos/marketUnknow.png`, true, false)}
                             onClick={ () => onClickMarkerPlace(place) }
                         />
                     )
@@ -125,6 +103,22 @@ const Map = ({
             }
         </>
     )
+
+
+
+    // const renderedMarketsMembers = () => {
+    //     console.log('render');
+    //     const teamsLocationsValues = Object.values(teamsLocations);
+        
+    //     const Markers = memo(( {data} ) => {
+
+    //     console.log('render memo');
+    //         return (
+                
+    //         )
+    //     })
+    //     return <Markers data={teamsLocationsValues}/>;
+    // }
 
     const renderedInfoWindowMember = () => {
         const { coords: { latitude, longitude }, name, teamName, phone, enable } = userSelected;
