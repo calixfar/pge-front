@@ -56,6 +56,7 @@ const SideBarWork = () => {
         )
     }
     const isWorkSelected = initialized_work && initialized_work._id ? true : null;
+    console.log('work', localWorks);
     return (
         <div className="sidebar" data-color="green" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
             <div className="logo"><Link to="/home" className="simple-text logo-normal">

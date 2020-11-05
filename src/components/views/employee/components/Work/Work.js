@@ -40,19 +40,20 @@ const Work = ({ work }) => {
 
         switch (value) {
             case 'Editar':
-                // if( status_work !== typesStatusWork.Inicio_tarea.value ) {
-                //     changeMsg({
-                //         type: 'error',
-                //         value: 'Debes iniciar la tarea para poder editarla'
-                //     });
-                //     return;
-                // }
+                if( status_work !== typesStatusWork.Inicio_tarea.value ) {
+                    changeMsg({
+                        type: 'error',
+                        value: 'Debes iniciar la tarea para poder editarla'
+                    });
+                    return;
+                }
                 changeShowSidebars('activities',true);
                 break;
             case 'Reason':
                 changeShowSidebars('reporProblem',true);
                 break;
             default:
+                console.log('value work status', value);
                 const res = await changeStatusWork(work._id, { status_work: value, commentary: commentary || '' });
                 console.log(res);
                 changeMsg({

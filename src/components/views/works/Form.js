@@ -50,7 +50,7 @@ const FormWork = ({ work }) => {
         const copyState = state;
         copyState.execution_date = new Date(state.execution_date);
         if( isInitialWork ) {
-            updateWork(copyState);
+            updateWork(work._id , copyState);
             return;
         }
         let result = await registerWork(copyState);
