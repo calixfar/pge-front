@@ -1,9 +1,9 @@
-import React, { useEffect, useState, useContext, useRef, useCallback } from 'react';
+import React, { useEffect, useState, useContext, useRef, useCallback, useMemo } from 'react';
 import Map from './map/map';
 import Filter from './filter';
 import { getLocations } from '../../../utils/sockets';
 import Context from './context/context';
-import { mapUserCoordWithMembersTeam } from './utils';
+import { mapUserCoordWithMembersTeam, filterPlacesWithActiveWorks } from './utils';
 import './styles.css';
 
 const Wrapper = () => {
@@ -29,13 +29,17 @@ const Wrapper = () => {
     });
     
     const [ showPlaces, setShowPlaces ] = useState(true);
+    const [ showPlacesWithWorks, setShowPlacesWithWorks ] = useState(false);
 
     // const [zoomValue, setZoomValue] = useState(6);
 
 
     const updateShowPlaces = useCallback((value) => {
-        console.log('fn updateShowPlaces');
         setShowPlaces( value );
+    }, [places]);
+
+    const updateShowPlacesWithWorks = useCallback((value) => {
+        setShowPlacesWithWorks( value );
     }, [places])
 
 
@@ -116,6 +120,9 @@ const Wrapper = () => {
         }
 
     }, [teams, geoLocations]);
+
+    const filterPlaces = useMemo(() => showPlacesWithWorks ? filterPlacesWithActiveWorks(places) : places, [places, showPlacesWithWorks]);
+    console.log('filterPlaces', filterPlaces);
     return (
         <div className="content">
             <div className="container-fluid completeHeight">
@@ -127,7 +134,7 @@ const Wrapper = () => {
                             userSelected={userSelected}
                             updateUserSelected={ updateUserSelected }
                             showInfoWindow={ showInfoWindow }
-                            places={ places }
+                            places={ filterPlaces }
                             showPlaces={ showPlaces }
                             updatePlaceSelected={ updatePlaceSelected }
                             placeSelected={ placeSelected }
@@ -143,8 +150,10 @@ const Wrapper = () => {
                             showInfoWindow={ showInfoWindow }
                             updateShowInfoWindow={ updateShowInfoWindow }
                             showPlaces={ showPlaces }
+                            showPlacesWithWorks={ showPlacesWithWorks }
                             updateShowPlaces={ updateShowPlaces }
-                            places={ places }
+                            updateShowPlacesWithWorks={ updateShowPlacesWithWorks }
+                            places={ filterPlaces }
                             updatePlaceSelected={ updatePlaceSelected }
                         />
                     </div>

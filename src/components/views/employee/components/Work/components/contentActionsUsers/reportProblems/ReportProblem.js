@@ -32,10 +32,13 @@ const ContentReportProblem = ({ sendReportProblem }) => {
     }
 
     const onClickReport = () => {
-        if( reason === '' ) changeMsg({
-            type: 'error',
-            value: 'Debes seleccionar una opción o escribir un motivo'
-        });
+        if( reason === '' ) {
+            changeMsg({
+                type: 'error',
+                value: 'Debes seleccionar una opción o escribir un motivo'
+            });
+            return;
+        }
         sendReportProblem(reason);
     }
 

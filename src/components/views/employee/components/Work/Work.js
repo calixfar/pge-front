@@ -74,7 +74,7 @@ const Work = ({ work }) => {
 
     if( !work ) return <></>
 
-    const { place: { address, department, city, name, structure, code_site }, priority, status_work } = work;
+    const { place: { address, department, city, name, structure, code_site }, priority, status_work, commentary } = work;
     
     return (
         <div className="containerWork">
@@ -89,6 +89,8 @@ const Work = ({ work }) => {
                         <p className="itemDescripWork"><strong>Dirección: </strong>{ address }</p>
                         <p className="itemDescripWork"><strong>Estructura: </strong>{ structure }</p>
                         <p className="itemDescripWork"><strong>Prioridad: </strong>{ priority }</p>
+                        <p className="itemDescripWork"><strong>Comentario: </strong>{ commentary ? commentary : 'NA' }</p>
+
                     </div>
                     <ActionsUser
                         onClickActionUser={ onClickActionUser }
@@ -99,7 +101,7 @@ const Work = ({ work }) => {
             <SideBar
                 show={ showSidebars.activities }
                 hideSideBar={ () => changeShowSidebars('activities', false) }
-                content={ <ContentActivities workId={work._id} commentary={work.commentary}/> }
+                content={ <ContentActivities workId={work._id} commentary={work.commentaryEmployee}/> }
             />
             <SideBar
                 show={ showSidebars.reporProblem }

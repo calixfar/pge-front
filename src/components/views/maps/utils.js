@@ -1,5 +1,7 @@
 import { ENABLE } from '../../../types/sockets';
 
+import { typesStatusWork } from '../../../types/works';
+
 export const mapUserCoordWithMembersTeam = (teams, usersCoords) => {
     const temp = {};
 
@@ -54,4 +56,19 @@ export const stateByEnable = (enable, destiny) => {
             break;
     }
     return value; 
+}
+
+export const filterPlacesWithActiveWorks = (places) => {
+    let temp = [];
+
+    places.forEach((place) => {
+        if( place.works && place.works.length ) {
+            console.log(place);
+            if(place.works.find(( { status_work } ) => status_work !== typesStatusWork.Problema.value || typesStatusWork.Culminada.value )){ 
+                temp.push(place);
+            }
+        }
+    })
+
+    return temp;
 }

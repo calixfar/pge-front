@@ -17,9 +17,9 @@ const FormWork = ({ work }) => {
         getTypesWork,
         typesWork } = workContext;
 
-        console.log(getTypesWork, typesWork)
 
     const isInitialWork = work && Object.values(work).length > 0; 
+    console.log('isInitialWork', work);
 
     const initialState = isInitialWork ? work : {
         place: '',
@@ -48,9 +48,7 @@ const FormWork = ({ work }) => {
             return;
         }
         const copyState = state;
-        console.log(state.execution_date);
         copyState.execution_date = new Date(state.execution_date);
-        console.log(copyState);
         if( isInitialWork ) {
             updateWork(copyState);
             return;
@@ -186,6 +184,7 @@ const FormWork = ({ work }) => {
                                                 items={optionsPlaces}
                                                 inputClassName="selectPlaces"
                                                 onSelect={changePlace}
+                                                initialValue={isInitialWork ? work.name : ''}
                                             />
                                         }
                                     </div>
@@ -327,7 +326,7 @@ const FormWork = ({ work }) => {
                             <div className="row mt-2">
                                 <div className="col-md-12">
                                     <div className="for-group">
-                                        <label>Comentarios</label>
+                                        <label>Comentario Field Manager</label>
                                         <input 
                                             className="form-control"
                                             name="commentary"
@@ -336,6 +335,19 @@ const FormWork = ({ work }) => {
                                         />
                                     </div>
                                 </div>
+                                {
+                                    isInitialWork &&
+                                    <div className="col-md-12">
+                                        <div className="for-group">
+                                            <label>Comentario Lider cuadrilla</label>
+                                            <input 
+                                                className="form-control"
+                                                name="commentary"
+                                                value={ isInitialWork ? work.commentaryEmployee : ''  }
+                                            />
+                                        </div>
+                                    </div>
+                                }
                             </div>
                             <div className="row d-flex justify-content-center mt-3">
                                 <button

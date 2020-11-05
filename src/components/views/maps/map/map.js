@@ -52,7 +52,7 @@ const getOptionsIcon = ( urlIcon, isMap, selected, sizeMarkerPlace ) => {
 const Map = ({
     updateMapRef,
     teamsLocations,
-    // places,
+    places,
     userSelected,
     updateUserSelected,
     showInfoWindow,
@@ -63,7 +63,7 @@ const Map = ({
     placeSelected
 }) => {
 
-    const { places } = useContext(Context);
+    // const { places } = useContext(Context);
 
     const [ sizeMarkerPlace, setSizeMarketPlace ] = useState(initialSizeMarkerPlace)
 

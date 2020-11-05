@@ -12,6 +12,8 @@ function Filter({
     showPlaces,
     updateShowPlaces,
     updatePlaceSelected,
+    showPlacesWithWorks,
+    updateShowPlacesWithWorks,
     places
 }) {
     return (
@@ -22,6 +24,8 @@ function Filter({
                     updateShowPlaces={ updateShowPlaces }
                     places={ places }
                     updatePlaceSelected={updatePlaceSelected}
+                    showPlacesWithWorks={ showPlacesWithWorks }
+                    updateShowPlacesWithWorks={ updateShowPlacesWithWorks }
                 />
             </div>
             <div className="itemFilter itemFilterTeam">
