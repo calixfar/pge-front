@@ -1,8 +1,9 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Sidebar from './Sidebar';
 import Header from './Header';
 import Footer from './Footer';
 import Content from './Content';
+import PageView from './PageView';
 import Login from '../login/Login';
 import Users from '../views/users/Users';
 import User from '../views/users/user';
@@ -24,19 +25,23 @@ import NotificationState from '../../context/notifications/State';
 import Notifications from '../views/notifications';
 import ViewEmpolyee from '../views/employee/employee';
 
-import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
+
+import { BrowserRouter as Router, Route, Redirect, Switch, useLocation } from 'react-router-dom';
 const MainPanel = () => {
 
     const authContext = useContext(AuthContext);
     
     const { usuario, userAuth } = authContext;
+    
     useEffect(() => {
-        console.log('entro effect');
         userAuth();
     }, []);
+
+    
     return (
         <>
             <Router>
+                <PageView/>
                 <NotificationState>
                     {
                         usuario !==  null && usuario.type_user === 'EMPLOYEE' ? 

@@ -1,0 +1,57 @@
+.containerModalBlock {
+opacity: -1;
+z-index: -1;
+width: 80%;
+position: absolute;
+top: 20%;
+left: 50%;
+transform: translate(-50%, -50%);
+transition: all 0.2s;
+}
+.contentModalBlock {
+    background-color: #fff;
+    padding: 30px 20px;
+}
+.containerModalBlockTitle {
+color: #fff;
+font-size: 20px;
+font-weight: bold;
+padding: 10px 20px;
+text-align: center;
+margin: 0;
+}
+.containerModalBlockText {
+color: #000;
+font-size: 18px;
+font-weight: bold;
+text-align: center;
+line-height: 1.5;
+}
+.overlay  {
+position: fixed;
+background-color: #000;
+opacity: -1;
+width: 100%;
+height: 100%;
+z-index: -1;
+top: 0;
+right: 0;
+left: 0;
+bottom: 0;
+transition: all 0.2s;
+}
+.overlay.show {
+z-index: 99998;
+opacity: 0.4;
+}
+.containerModalBlock.show {
+z-index: 99999;
+opacity: 1;
+}
+.containerModalBlockBtn {
+    margin: 0 auto;
+    color: #fff;
+    display: block;
+    font-weight: bold;
+    cursor: pointer;
+}

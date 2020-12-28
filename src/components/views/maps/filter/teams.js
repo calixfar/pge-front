@@ -21,6 +21,7 @@ const Filter = ({
 
     
     if( teams === null ) return <></>;
+    console.log('teamLocations', teamsLocations);
     return (
         <div>
             <h2 className="title-filter">Grupos de trabajo</h2>

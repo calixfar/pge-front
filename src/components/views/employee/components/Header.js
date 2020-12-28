@@ -9,45 +9,41 @@ const Header = () => {
 
     const [showSubMenu, setShowSubMenu] = useState(false);
     const changeSubMenu = () => setShowSubMenu(!showSubMenu);
-    const [ socketSubscribeEmit, setSocketSubscribeEmit ] = useState(false);
     const [ coords, setCoords ] = useState(null);
-
-    // const getCoords = () => {
-    //     const succes = (res) => {
-    //         console.log('coords', res);
-    //         setCoords(res.coords)
-    //     }
-    //     const error = (err) => {
-    //         console.log(err);
-    //     }
+    const [ coordsLocal, setCoordsLocal ] = useState(null);
     
-    //     const options = {
-    //         enableHighAccuracy: true,
-    //         timeout: 10000,
-    //         maximumAge: 0 
-    //     }
-    //     navigator.geolocation.getCurrentPosition(succes, error, options);
-    // }
 
     useEffect(() => {
         if( auth === null ) {
-            console.log('enter ');
             userAuth();
         }
         
     }, []);
 
+    const updateCoords = () => {
+        if( coords  && coords.latitude === coordsLocal.latitude && coords.longitude === coordsLocal.longitude  ) return;
+        setCoords(coordsLocal);
+
+
+    }
+
     useEffect(() => {
-        console.log('sockerSubscribeEmit', socketSubscribeEmit);
         if( usuario && !coords  ) {
             actionBackgroundImage('remove');
-            getCoords((value) => setCoords(value));
+            getCoords((value) => setCoordsLocal(value));
+            // setInterval(() => {
+            //     // (value) => setCoords(value)
+            //     getCoords(callbackGetCoords);
+            // }, 10000);
         }
         
     }, [usuario]);
 
     useEffect(() => {
-        console.log(coords);
+        updateCoords();
+    }, [coordsLocal])
+
+    useEffect(() => {
 
         if( coords ) {
             const { latitude, longitude } = coords;
@@ -61,6 +57,8 @@ const Header = () => {
             })
         }
     }, [coords]);
+
+
     if(usuario === null) {
         return(
             <div></div>

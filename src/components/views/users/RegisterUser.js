@@ -45,7 +45,7 @@ const RegisterUser = ({ getUsers }) => {
         e.preventDefault();
         if(name === "" || last_name === "" ||  phone === "" ||  
         type_user === "" ||  password === "" ||  email === "" ||
-        team_id === "") {
+        type_user !==  "ADMIN" && team_id === "" ) {
             Swal.fire({
                 icon: 'error',
                 title: 'Error...',
